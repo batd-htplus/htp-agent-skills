@@ -13,7 +13,6 @@ Cách cài skill vào Cursor, Claude Code, v.v.: xem [README gốc repo — Supp
 - `metadata.json` — Document metadata (version, organization, abstract)
 - **`AGENTS.md`** — Compiled output for agents
 - **`SKILL.md`** — Skill entry point and quick reference
-- `audit.sh` — Grep-based audit script for route lists
 
 ## Rule Categories
 
