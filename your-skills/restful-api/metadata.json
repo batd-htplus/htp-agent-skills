@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0",
+  "organization": "restful-api-best-practices",
+  "date": "February 2026",
+  "abstract": "Strict RESTful API design, review, and refactoring guidelines for AI agents and LLMs. Contains 10 rules covering resource-oriented URLs, HTTP methods, statelessness, status codes, error structure, collections/pagination, actions as sub-resources, naming conventions, versioning, and predictability. Use when designing, reviewing, or refactoring REST APIs.",
+  "references": [
+    "https://restfulapi.net",
+    "https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods",
+    "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
+  ]
+}
