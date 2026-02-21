@@ -1,0 +1,18 @@
+{
+  "id": "typescript-best-practices",
+  "version": "1.0.0",
+  "language": "TypeScript",
+  "license": "MIT",
+  "abstract": "Strict TypeScript coding rules covering type safety, compiler configuration, generics, narrowing, utility types, async patterns, module structure, and error handling. Designed for production-grade TypeScript projects. Rule files use descriptive names (ts-compiler-strict, ts-type-declarations, etc.) for easy discovery and extension.",
+  "tags": ["typescript", "types", "generics", "strict", "patterns", "best-practices"],
+  "sections": [
+    { "id": "ts-compiler-strict", "title": "Compiler Configuration", "impact": "CRITICAL" },
+    { "id": "ts-type-declarations", "title": "Type Declarations", "impact": "CRITICAL" },
+    { "id": "ts-narrowing-guards", "title": "Type Narrowing & Guards", "impact": "CRITICAL" },
+    { "id": "ts-async-errors", "title": "Async & Error Handling", "impact": "CRITICAL" },
+    { "id": "ts-generics", "title": "Generics", "impact": "MAJOR" },
+    { "id": "ts-utility-types", "title": "Utility Types", "impact": "MAJOR" },
+    { "id": "ts-modules-imports", "title": "Module & Import Structure", "impact": "MAJOR" },
+    { "id": "ts-patterns-anti-patterns", "title": "Patterns & Anti-Patterns", "impact": "MAJOR" }
+  ]
+}
