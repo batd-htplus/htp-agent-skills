@@ -1,0 +1,16 @@
+{
+  "id": "laravel-best-practices",
+  "version": "1.0.0",
+  "language": "PHP/Laravel",
+  "license": "MIT",
+  "abstract": "Comprehensive Laravel best practices and coding standards for production-grade applications. Contains rules across 6 categories: Database & Eloquent (migrations, N+1 prevention), Security (authentication, authorization, SQL injection prevention), API Standards (RESTful design, unified responses), Testing (coverage, patterns), Performance (caching, queues), and Coding Standards (PSR-12, Repository Pattern, Service Layer).",
+  "tags": ["laravel", "php", "api", "database", "testing", "security", "performance", "coding-standards"],
+  "sections": [
+    { "id": "db-eloquent", "title": "Database & Eloquent", "impact": "CRITICAL" },
+    { "id": "security", "title": "Security", "impact": "CRITICAL" },
+    { "id": "api", "title": "API Standards", "impact": "CRITICAL" },
+    { "id": "test", "title": "Testing", "impact": "HIGH" },
+    { "id": "perf", "title": "Performance", "impact": "HIGH" },
+    { "id": "code", "title": "Coding Standards", "impact": "HIGH" }
+  ]
+}

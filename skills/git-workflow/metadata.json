@@ -1,0 +1,12 @@
+{
+  "id": "git-workflow-best-practices",
+  "version": "1.0.0",
+  "license": "MIT",
+  "abstract": "Git Flow branching strategy, Conventional Commits format, Pull Request templates, and code review guidelines for collaborative development. Contains rules for branch naming, commit messages, PR workflow, code review, and Git Flow lifecycle.",
+  "tags": ["git", "workflow", "commits", "pull-requests", "code-review", "branching"],
+  "sections": [
+    { "id": "git-branch-commits", "title": "Branch Naming & Commits", "impact": "CRITICAL" },
+    { "id": "git-pr", "title": "Pull Request Workflow", "impact": "HIGH" },
+    { "id": "git-review", "title": "Code Review Guidelines", "impact": "MEDIUM" }
+  ]
+}
