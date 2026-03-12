@@ -1,13 +1,13 @@
 ---
-title: Pagination — Never Return All Records
+title: Pagination for Large Result Sets
 impact: MEDIUM
-impactDescription: Never use ->get() on potentially large result sets. Always paginate results.
+impactDescription: Prefer pagination for potentially large result sets; document exceptions for small, bounded datasets.
 tags: performance, pagination, memory, queries
 ---
 
-## Pagination — Never Return All Records
+## Pagination for Large Result Sets
 
-Never use `->get()` on potentially large result sets. Always paginate results.
+Prefer pagination for potentially large result sets. If the dataset is small and bounded, document the exception.
 
 **Why it matters:** Loading all records into memory can cause memory exhaustion and slow responses.
 
@@ -21,7 +21,7 @@ $users = User::all();
 **✅ Correct:**
 
 ```php
-// Always paginate
+// Prefer pagination
 $users = User::paginate(15);
 $users = User::simplePaginate(15);  // Faster — no total count query
 

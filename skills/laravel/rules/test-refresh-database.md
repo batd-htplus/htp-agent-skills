@@ -1,13 +1,13 @@
 ---
 title: Use RefreshDatabase Trait
 impact: CRITICAL
-impactDescription: Every test class that touches the database MUST use RefreshDatabase to ensure test isolation.
+impactDescription: Tests that touch the database should use RefreshDatabase; document exceptions for performance-critical suites.
 tags: testing, database, isolation, refresh
 ---
 
 ## Use RefreshDatabase Trait
 
-Every test class that touches the database MUST use `RefreshDatabase` to ensure test isolation.
+Tests that touch the database should use `RefreshDatabase` to ensure isolation. If you use another strategy (transactions, dedicated DB), document the exception.
 
 **Why it matters:** RefreshDatabase ensures each test starts with a clean database state, preventing test interdependencies.
 

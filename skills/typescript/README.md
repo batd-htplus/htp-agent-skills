@@ -13,7 +13,6 @@ Cách cài skill vào Cursor, Claude Code, v.v.: xem [README gốc repo — Supp
 - `metadata.json` — Document metadata (version, sections, tags)
 - **`AGENTS.md`** — Compiled output for agents
 - **`SKILL.md`** — Skill entry point and quick reference
-- `audit.ts` — Optional AST-based audit CLI
 
 ## Rule Files (by priority)
 
@@ -27,6 +26,16 @@ Cách cài skill vào Cursor, Claude Code, v.v.: xem [README gốc repo — Supp
 | 6 | `ts-utility-types.md` | MAJOR |
 | 7 | `ts-modules-imports.md` | MAJOR |
 | 8 | `ts-patterns-anti-patterns.md` | MAJOR |
+| 9 | `ts-project-references.md` | MAJOR |
+| 10 | `ts-module-resolution.md` | MAJOR |
+| 11 | `ts-runtime-validation.md` | CRITICAL |
+| 12 | `ts-env-config.md` | CRITICAL |
+| 13 | `ts-error-handling.md` | MAJOR |
+| 14 | `ts-immutable-updates.md` | MAJOR |
+| 15 | `ts-public-api-surface.md` | MAJOR |
+| 16 | `ts-testing-types.md` | MAJOR |
+| 17 | `ts-declaration-files.md` | MAJOR |
+| 18 | `ts-performance-types.md` | MAJOR |
 
 ## Creating a New Rule
 

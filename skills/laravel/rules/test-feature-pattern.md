@@ -62,7 +62,7 @@ class UserControllerTest extends TestCase
         $admin = User::factory()->admin()->create();
 
         $payload = [
-            'name'                  => 'Nguyen Van A',
+            'name'                  => 'John Doe',
             'email'                 => 'nva@example.com',
             'password'              => 'Password@123',
             'password_confirmation' => 'Password@123',

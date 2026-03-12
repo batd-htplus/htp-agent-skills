@@ -12,8 +12,8 @@ tags: typescript, interface, type, unknown, as const, export type
 ## Rules
 
 1. **Prefer `interface` for object shapes, `type` for unions/aliases** — use `interface` when the shape may be extended; use `type` for unions, intersections, mapped types, and primitives.
-2. **Never use `any` — use `unknown` for truly unknown values** — `any` disables the type system; `unknown` forces explicit narrowing before use.
-3. **Use `as const` for literal values and config objects** — prevents widening to primitive types and enables precise literal types.
+2. **Avoid `any` in application code — use `unknown` for truly unknown values** — `any` disables the type system; `unknown` forces explicit narrowing before use. Allow `any` only for generated or third-party types with a brief justification.
+3. **Use `as const` when you need literal inference for config/literal objects** — prevents widening to primitive types and enables precise literal types.
 4. **Name types as nouns, not adjectives or verbs** — `User`, `OrderStatus`, `ApiResponse<T>` — not `IUser`, `TUser`, `Userable`.
 5. **Export types with `export type`** — separates value exports from type exports; required with `verbatimModuleSyntax`.
 
@@ -103,8 +103,8 @@ import type { User } from './types'   // ✅
 
 - [ ] All object shapes use `interface`
 - [ ] All unions, aliases, mapped types use `type`
-- [ ] Zero `any` in codebase — use `unknown` + narrowing
-- [ ] All config/literal objects use `as const`
+- [ ] No `any` in application code — use `unknown` + narrowing (exceptions must be justified)
+- [ ] Config/literal objects use `as const` when literal inference is required
 - [ ] No Hungarian prefixes (`I`, `T`, `E`) on type names
 - [ ] All type-only exports use `export type`
 

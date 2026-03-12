@@ -1,13 +1,13 @@
 ---
 title: Select Only Required Columns
 impact: MEDIUM
-impactDescription: Never use SELECT *. Always select only the columns you actually need to reduce memory usage and improve performance.
+impactDescription: Prefer selecting only the columns you need; document exceptions for small internal queries.
 tags: performance, queries, memory, optimization
 ---
 
 ## Select Only Required Columns
 
-Never use `SELECT *`. Always select only the columns you actually need.
+Prefer selecting only the columns you need. If you use `SELECT *` in small internal queries, document the exception.
 
 **Why it matters:** Selecting unnecessary columns wastes memory and bandwidth, especially with large tables or many relationships.
 

@@ -24,7 +24,7 @@ Status codes MUST be semantically correct. Never return 200 for errors.
 | 404 | Not Found | Resource does not exist |
 | 409 | Conflict | Duplicate resource, state conflict |
 | 422 | Unprocessable Entity | Validation errors on valid JSON |
-| 429 | Too Many Requests | Rate limit exceeded; include Retry-After |
+| 429 | Too Many Requests | Rate limit exceeded |
 | 500 | Internal Server Error | Unexpected server error |
 
 **Incorrect:**
@@ -40,4 +40,4 @@ HTTP/1.1 500 OK
 { "success": true }               ❌ contradictory
 ```
 
-**Required headers:** 201 → `Location: /v1/resource/{id}`. 429 → `Retry-After: 60`. 401 → `WWW-Authenticate: Bearer`.
+**See also:** `api-auth-rate-limits.md`

@@ -33,7 +33,7 @@ The section ID (in parentheses) is the filename prefix used to group rules.
 ## 6. Async & Error Handling (ts-async-errors)
 
 **Impact:** CRITICAL  
-**Description:** Always await Promises (or void with comment). catch(error: unknown) + narrow. Result<T,E> for expected failures. No async without await. Promise.all for parallel.
+**Description:** Always await Promises (or void with comment). catch(error: unknown) + narrow. Result<T,E> for expected failures. Avoid async without await. Promise.all for parallel.
 
 ## 7. Module & Import Structure (ts-modules-imports)
 
@@ -43,4 +43,54 @@ The section ID (in parentheses) is the filename prefix used to group rules.
 ## 8. Patterns & Anti-Patterns (ts-patterns-anti-patterns)
 
 **Impact:** MAJOR  
-**Description:** No any, as, enum, object type. Use unknown + narrow, string literal unions, satisfies for literal+constraint, Record<K,V>. @ts-expect-error with comment only.
+**Description:** Avoid any/as/enum/object in application code. Use unknown + narrow, string literal unions, satisfies for literal+constraint, Record<K,V>. @ts-expect-error with comment only.
+
+## 9. Project References (ts-project-references)
+
+**Impact:** MAJOR  
+**Description:** Use project references for multi-package repos. Enable composite/declaration for incremental builds and boundary enforcement.
+
+## 10. Module Resolution & ESM/CJS (ts-module-resolution)
+
+**Impact:** MAJOR  
+**Description:** Align module/moduleResolution/target with runtime. Avoid mismatches between Node ESM, CJS, and bundlers.
+
+## 11. Runtime Validation at Boundaries (ts-runtime-validation)
+
+**Impact:** CRITICAL  
+**Description:** Validate all untrusted input at boundaries (API, env, JSON). Use schema parsing, never cast raw data.
+
+## 12. Environment Configuration (ts-env-config)
+
+**Impact:** CRITICAL  
+**Description:** Centralized, typed env parsing with validation and fail-fast behavior. No scattered process.env usage.
+
+## 13. Error Handling Model (ts-error-handling)
+
+**Impact:** MAJOR  
+**Description:** Typed error model with codes and causes. Use Result for expected failures and preserve root causes.
+
+## 14. Immutable Updates (ts-immutable-updates)
+
+**Impact:** MAJOR  
+**Description:** Avoid mutating shared state. Use Readonly inputs and structural sharing for updates.
+
+## 15. Public API Surface (ts-public-api-surface)
+
+**Impact:** MAJOR  
+**Description:** Explicit public exports. Avoid deep imports by consumers. Use export type for type-only exports.
+
+## 16. Types in Tests (ts-testing-types)
+
+**Impact:** MAJOR  
+**Description:** Keep tests type-safe. Avoid as any, use satisfies/builders for fixtures.
+
+## 17. Declaration Files (ts-declaration-files)
+
+**Impact:** MAJOR  
+**Description:** Keep ambient declarations scoped and minimal. Prefer module augmentation over global pollution.
+
+## 18. Type System Performance (ts-performance-types)
+
+**Impact:** MAJOR  
+**Description:** Avoid complex recursive types and huge unions. Prefer simple types for editor performance.

@@ -1,13 +1,13 @@
 ---
 title: Chunk for Large Datasets
 impact: MEDIUM
-impactDescription: Never use ->get() on potentially large result sets. Use chunk() or lazy() to process data in batches.
+impactDescription: Prefer chunk() or lazy() for large result sets; document exceptions for small bounded queries.
 tags: eloquent, performance, memory, large-datasets
 ---
 
 ## Chunk for Large Datasets
 
-Never use `->get()` on potentially large result sets. Use `chunk()` or `lazy()` to process data in batches.
+Prefer `chunk()` or `lazy()` for potentially large result sets. If the dataset is small and bounded, document the exception.
 
 **Why it matters:** Loading all records into memory can cause memory exhaustion. Chunking processes data in manageable batches.
 

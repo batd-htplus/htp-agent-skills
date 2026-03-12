@@ -18,6 +18,6 @@ Follow PSR-12 coding standard for file format, indentation, and line length.
 - Indent: **4 spaces** (never tabs)
 - Max line length: **120 characters**
 - One blank line at end of file
-- Opening `{` on same line for classes and methods
+- Opening `{` on the next line for classes and methods
 
 **See also:** `code-naming-conventions.md`, `references/psr-12-summary.md`

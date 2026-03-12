@@ -1,13 +1,13 @@
 ---
 title: Model Factories with States
 impact: MEDIUM
-impactDescription: Every model MUST have a factory with states for different scenarios (admin, unverified, inactive, etc.).
+impactDescription: Prefer factories with states for models used in tests; document exceptions.
 tags: testing, factories, models, states
 ---
 
 ## Model Factories with States
 
-Every model MUST have a factory with states for different scenarios.
+Prefer factories with states for models used in tests. Document exceptions for models that are never instantiated in tests.
 
 **Why it matters:** Factories with states make tests more readable and maintainable by providing semantic ways to create test data.
 

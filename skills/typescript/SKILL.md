@@ -20,7 +20,7 @@ metadata:
 
 ## What This Skill Does
 
-Enforces production-grade TypeScript across 8 rule sections (34 rules total).
+Enforces production-grade TypeScript across 18 rule sections.
 
 - **Review** code for type safety violations
 - **Refactor** unsafe patterns (`any`, `as`, `enum`, unhandled Promises)
@@ -42,6 +42,21 @@ Activate when the user:
 
 ---
 
+## Version & Compatibility
+
+- TypeScript **4.9+** required for `satisfies`
+- TypeScript **5.0+** required for `verbatimModuleSyntax`
+- If the project uses older TS, replace `satisfies` with explicit type annotations and use `importsNotUsedAsValues`
+
+---
+
+## Rule Interpretation
+
+- Rules are defaults for production code.
+- If an exception is needed, require a brief justification in review notes.
+
+---
+
 ## Rule Categories by Priority
 
 | Priority | Category              | Impact   | Rule file |
@@ -54,23 +69,43 @@ Activate when the user:
 | 6        | Utility Types         | MAJOR    | `ts-utility-types` |
 | 7        | Module & Import Structure | MAJOR | `ts-modules-imports` |
 | 8        | Patterns & Anti-Patterns  | MAJOR | `ts-patterns-anti-patterns` |
+| 9        | Project References    | MAJOR    | `ts-project-references` |
+| 10       | Module Resolution & ESM/CJS | MAJOR | `ts-module-resolution` |
+| 11       | Runtime Validation    | CRITICAL | `ts-runtime-validation` |
+| 12       | Environment Config    | CRITICAL | `ts-env-config` |
+| 13       | Error Handling Model  | MAJOR    | `ts-error-handling` |
+| 14       | Immutable Updates     | MAJOR    | `ts-immutable-updates` |
+| 15       | Public API Surface    | MAJOR    | `ts-public-api-surface` |
+| 16       | Types in Tests        | MAJOR    | `ts-testing-types` |
+| 17       | Declaration Files     | MAJOR    | `ts-declaration-files` |
+| 18       | Type System Performance | MAJOR  | `ts-performance-types` |
 
 ## Quick Reference
 
 - `ts-compiler-strict` — `strict: true`, `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`, no `@ts-ignore`
-- `ts-type-declarations` — No `any`. `interface` for shapes, `type` for unions. `as const`. `export type`.
+- `ts-type-declarations` — Avoid `any` in application code. `interface` for shapes, `type` for unions. `as const` when needed. `export type`.
 - `ts-narrowing-guards` — Discriminated unions, `is` predicates, `never` exhaustiveness, Zod at boundaries
 - `ts-async-errors` — `Result<T, E>` for expected errors. `catch(unknown)`. No floating Promises. `Promise.all`
 - `ts-generics` — Constrain with `extends`. Semantic names (`TKey`, `TValue`). Rely on inference. `infer`
 - `ts-utility-types` — `Partial`/`Omit` for inputs. `Pick` over redeclaration. `ReturnType`/`Awaited`. `Record`
 - `ts-modules-imports` — Path aliases. `import type`. Barrels only at boundaries. 5-group import order
-- `ts-patterns-anti-patterns` — No `any`, `as`, `enum`, `object`. Use `satisfies`, `Record`, `unknown`
+- `ts-patterns-anti-patterns` — Avoid `any`/`enum`/`object` in application code, avoid `as` outside validated boundaries. Use `satisfies`, `Record`, `unknown`
+- `ts-project-references` — Project references for monorepos, composite builds, `tsc -b`
+- `ts-module-resolution` — Align `module`/`moduleResolution`/`target` with runtime
+- `ts-runtime-validation` — Validate all untrusted input at boundaries
+- `ts-env-config` — Centralized, typed, validated env config
+- `ts-error-handling` — Typed error model and `Result` usage
+- `ts-immutable-updates` — Avoid mutation, use Readonly + structural sharing
+- `ts-public-api-surface` — Explicit public exports, avoid deep imports
+- `ts-testing-types` — Type-safe fixtures/tests, avoid `as any`
+- `ts-declaration-files` — Scoped ambient declarations, prefer module augmentation
+- `ts-performance-types` — Avoid heavy recursive types and huge unions
 
 ## File Map
 
 ```
 SKILL.md             ← you are here (entry point + quick ref)
-AGENTS.md            ← full compiled rules for agents (14KB, 384 lines)
+AGENTS.md            ← full compiled rules for agents
 rules/
   _sections.md       ← index of all 8 sections with impact levels
   _template.md       ← template for adding new rule sections
@@ -82,8 +117,17 @@ rules/
   ts-async-errors.md
   ts-modules-imports.md
   ts-patterns-anti-patterns.md
+  ts-project-references.md
+  ts-module-resolution.md
+  ts-runtime-validation.md
+  ts-env-config.md
+  ts-error-handling.md
+  ts-immutable-updates.md
+  ts-public-api-surface.md
+  ts-testing-types.md
+  ts-declaration-files.md
+  ts-performance-types.md
 metadata.json        ← document metadata (version, sections, tags)
-audit.ts             ← TypeScript AST-based audit CLI (optional)
 ```
 
 ---
@@ -101,10 +145,12 @@ audit.ts             ← TypeScript AST-based audit CLI (optional)
 
 1. Start with `tsconfig.json` — verify `strict`, `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`
 2. Define types: `interface` for shapes, `type` for unions, `as const` for literals
-3. Use discriminated unions with a `kind` field for any type that has variants
+3. Use discriminated unions with a `kind` field for object-variant unions
 4. Derive input types with `Partial<Omit<T, ...>>` (PATCH) / `Required<Omit<T, ...>>` (PUT)
 5. Handle async with `Result<T, E>` for expected failures, `catch(unknown)` for crashes
-6. Configure path aliases; use `import type` for all type imports
+6. Validate boundary inputs with schemas; avoid raw casts
+7. Centralize and validate environment configuration
+8. Configure path aliases; use `import type` for all type imports
 
 ### Output format (review)
 

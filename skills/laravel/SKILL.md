@@ -46,6 +46,21 @@ Activate when the user:
 
 ---
 
+## Version & Compatibility
+
+- PHP **8.1+** required for `readonly` constructor promotion and native enums
+- Laravel **10/11** supported; some bootstrapping (e.g. rate limiter registration) differs by version
+- Cache tags require a tag-capable driver (Redis or Memcached), not file/array cache
+
+---
+
+## Rule Interpretation
+
+- Rules are defaults for production code.
+- If an exception is needed, require a brief justification in review notes.
+
+---
+
 ## Rule Categories by Priority
 
 | Priority | Category | Impact | Prefix |
@@ -61,10 +76,10 @@ Activate when the user:
 
 ### 1. Database & Eloquent (CRITICAL)
 - `db-migrations-only` — Never modify database directly, always use migrations
-- `db-migrations-reversible` — Always implement `down()` in migrations
-- `eloquent-prevent-n-plus-one` — Always eager load relationships
+- `db-migrations-reversible` — Prefer reversible migrations with `down()`; document exceptions
+- `eloquent-prevent-n-plus-one` — Eager load relationships when they are accessed
 - `eloquent-fillable-only` — Never use `$guarded = []`
-- `eloquent-soft-deletes` — Use SoftDeletes for main entities
+- `eloquent-soft-deletes` — Prefer SoftDeletes for main entities; document exceptions
 - `eloquent-indexes` — Add indexes for foreign keys and WHERE/ORDER BY columns
 - `eloquent-transactions` — Wrap multi-step writes in transactions
 - `eloquent-chunk-large-datasets` — Use chunk() or lazy() for large result sets
@@ -83,18 +98,18 @@ Activate when the user:
 - `api-unified-response` — Use unified JSON response format
 - `api-versioning` — All routes prefixed with `/api/v1/`
 - `api-status-codes` — Use semantically correct HTTP status codes
-- `api-resources` — Always use API Resources, never raw models
-- `api-form-requests` — Always use FormRequest for validation
+- `api-resources` — Prefer API Resources; document exceptions
+- `api-form-requests` — Prefer FormRequest validation; document exceptions
 - `api-restful-routes` — Follow RESTful route conventions
 - `api-rate-limiting` — Apply rate limiting to endpoints
 
 ### 4. Testing (HIGH)
-- `test-coverage-requirements` — Feature tests ≥70%, Unit tests ≥80%, Critical flows 100%
-- `test-refresh-database` — Use RefreshDatabase trait
+- `test-coverage-requirements` — Coverage targets (document exceptions)
+- `test-refresh-database` — Prefer RefreshDatabase or documented alternatives
 - `test-naming-convention` — Use `it_should_[action]_when_[condition]` format
 - `test-feature-pattern` — Follow Feature test pattern with assertions
 - `test-unit-pattern` — Follow Unit test pattern for services
-- `test-factories` — Every model must have factory with states
+- `test-factories` — Prefer factories with states for models used in tests
 - `test-mock-external` — Mock external services, never call real APIs
 
 ### 5. Performance (HIGH)
@@ -102,8 +117,8 @@ Activate when the user:
 - `perf-job-pattern` — Follow Job implementation pattern with retry/timeout
 - `perf-redis-caching` — Use Redis caching with tags for targeted invalidation
 - `perf-config-cache` — Cache config, routes, views in production
-- `perf-pagination` — Never return all records, always paginate
-- `perf-select-columns` — Select only required columns, never SELECT *
+- `perf-pagination` — Prefer pagination for large datasets; document exceptions
+- `perf-select-columns` — Prefer selecting required columns; document exceptions
 - `perf-queue-priorities` — Configure queue priorities (critical, high, default, low)
 
 ### 6. Coding Standards (HIGH)
@@ -113,7 +128,7 @@ Activate when the user:
 - `code-psr-12` — Follow PSR-12 file format (UTF-8, LF, 4 spaces, 120 chars)
 - `code-naming-conventions` — Follow Laravel naming conventions
 - `code-folder-structure` — Follow standard folder structure with API versioning
-- `code-repository-pattern` — All database access through Repository
+- `code-repository-pattern` — Default: database access through Repository
 - `code-service-layer` — Business logic in Services, controllers thin
 - `code-enums` — Use PHP 8.1 Enums instead of constants
 

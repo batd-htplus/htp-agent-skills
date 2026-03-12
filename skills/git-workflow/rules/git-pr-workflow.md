@@ -1,7 +1,7 @@
 ---
 title: PR Workflow
 impact: HIGH
-impactDescription: Standard PR workflow ensures clean Git history, proper integration, and code quality. Always branch from develop, rebase before PR, and follow the workflow.
+impactDescription: Standard PR workflow ensures clean Git history, proper integration, and code quality. For Git Flow, branch from develop and rebase before PR.
 tags: git, pull-request, workflow, rebase
 ---
 
@@ -14,7 +14,7 @@ Follow the standard PR workflow to ensure clean Git history and proper integrati
 **✅ Standard workflow:**
 
 ```bash
-# 1. Create branch from develop
+# 1. Create branch from develop (Git Flow)
 git checkout develop
 git pull origin develop
 git checkout -b feature/AUTH-123-user-login
@@ -33,7 +33,7 @@ git push origin feature/AUTH-123-user-login
 ```
 
 **Important steps:**
-1. Always branch from `develop` (or `main` for hotfixes)
+1. For Git Flow, branch from `develop` (or `main` for hotfixes)
 2. Use Conventional Commits format
 3. Rebase before creating PR to keep history clean
 4. Push and create PR with proper template

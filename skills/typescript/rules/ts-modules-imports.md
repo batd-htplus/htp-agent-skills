@@ -12,7 +12,7 @@ tags: typescript, import, path alias, barrel, import type, verbatimModuleSyntax
 ## Rules
 
 1. **Use path aliases instead of relative `../../` imports** — configure `paths` in `tsconfig.json` and keep imports readable.
-2. **Barrel files (`index.ts`) only for public API surface** — do not create barrels inside every folder; they cause circular dependency risk and slow bundlers.
+2. **Prefer barrel files (`index.ts`) only for public API surface** — avoid barrels inside every folder; they cause circular dependency risk and slow bundlers.
 3. **Separate type imports with `import type`** — enforced by `verbatimModuleSyntax`; prevents value imports of type-only modules.
 4. **Order imports consistently** — external packages → internal aliases → relative files → type imports.
 
@@ -82,10 +82,10 @@ import * as utils from '@lib/utils'  // use named imports
 ## Checklist
 
 - [ ] `paths` configured in `tsconfig.json` — no `../../../` in codebase
-- [ ] Barrel files exist only at feature public boundaries
+- [ ] Barrel files exist only at feature public boundaries (exceptions documented)
 - [ ] All type-only imports use `import type`
 - [ ] Imports follow the 5-group order (node → external → alias → relative → types)
-- [ ] No star imports (`import * as`) in application code
+- [ ] Avoid star imports (`import * as`) in application code unless a library requires namespace import
 
 ## See Also
 

@@ -1,13 +1,13 @@
 ---
-title: Always Implement down() in Migrations
+title: Reversible Migrations
 impact: CRITICAL
-impactDescription: Every migration must be reversible to allow rollbacks and maintain database consistency.
+impactDescription: Migrations should be reversible; document exceptions when rollbacks are not feasible.
 tags: database, migrations, rollback
 ---
 
-## Always Implement down() in Migrations
+## Reversible Migrations
 
-Every migration must be reversible. Always implement the `down()` method to allow rollbacks.
+Migrations should be reversible. Implement the `down()` method to allow rollbacks; if not feasible, document the exception and mitigation.
 
 **Why it matters:** Reversible migrations allow safe rollbacks, maintain database consistency, and enable proper version control.
 

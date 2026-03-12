@@ -54,3 +54,23 @@ The section ID (in parentheses) is the filename prefix used to group rules.
 
 **Impact:** MEDIUM  
 **Description:** APIs should be boring by design—predictable and easy to guess.
+
+## 11. Response Envelope (api-response-envelope)
+
+**Impact:** HIGH  
+**Description:** Consistent success response envelope (`data`, optional `meta`, optional `links`) for predictable clients.
+
+## 12. Idempotency & Retries (api-idempotency-retry)
+
+**Impact:** HIGH  
+**Description:** Support safe retries for non-idempotent operations using `Idempotency-Key`.
+
+## 13. Auth & Rate Limit Headers (api-auth-rate-limits)
+
+**Impact:** HIGH  
+**Description:** Explicit auth and throttling behavior via standard headers.
+
+## 14. Pagination Links (api-pagination-links)
+
+**Impact:** MEDIUM  
+**Description:** Provide pagination navigation links for collection responses.

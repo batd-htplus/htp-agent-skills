@@ -20,6 +20,16 @@ Apply all rules strictly. CRITICAL violations must be fixed before any code ship
 | ts-utility-types            | Utility Types                | MAJOR    |
 | ts-modules-imports          | Module & Import Structure    | MAJOR    |
 | ts-patterns-anti-patterns   | Patterns & Anti-Patterns     | MAJOR    |
+| ts-project-references       | Project References           | MAJOR    |
+| ts-module-resolution        | Module Resolution & ESM/CJS  | MAJOR    |
+| ts-runtime-validation       | Runtime Validation           | CRITICAL |
+| ts-env-config               | Environment Configuration    | CRITICAL |
+| ts-error-handling           | Error Handling Model         | MAJOR    |
+| ts-immutable-updates        | Immutable Updates            | MAJOR    |
+| ts-public-api-surface       | Public API Surface           | MAJOR    |
+| ts-testing-types            | Types in Tests               | MAJOR    |
+| ts-declaration-files        | Declaration Files            | MAJOR    |
+| ts-performance-types        | Type System Performance      | MAJOR    |
 
 ---
 
@@ -62,7 +72,7 @@ legacyLib.oldMethod()
 
 ## [ts-type-declarations] Type Declarations — CRITICAL
 
-**Rules:** `interface` for shapes, `type` for unions/aliases. Never `any` — use `unknown`. Use `as const`. No Hungarian prefixes. Always `export type`.
+**Rules:** `interface` for shapes, `type` for unions/aliases. Avoid `any` in application code — use `unknown` (exceptions documented). Use `as const` when literal inference is required. No Hungarian prefixes. Always `export type`.
 
 ```typescript
 // ✅ interface for extensible shapes
@@ -92,8 +102,8 @@ export type { User, UserRole }
 ```
 
 **Checklist:**
-- [ ] Zero `any` — use `unknown` + narrowing
-- [ ] All config objects use `as const`
+- [ ] No `any` in application code — use `unknown` + narrowing (exceptions documented)
+- [ ] Config/literal objects use `as const` when literal inference is required
 - [ ] No `I`, `T`, `E` prefixes on type names
 - [ ] All type-only exports use `export type`
 
@@ -101,7 +111,7 @@ export type { User, UserRole }
 
 ## [ts-narrowing-guards] Type Narrowing & Guards — CRITICAL
 
-**Rules:** Discriminated unions with `kind` field. Named type predicates. `never` exhaustiveness. Never `as` to bypass narrowing.
+**Rules:** Discriminated unions with `kind` field for object-variant unions. Named type predicates. `never` exhaustiveness. Avoid `as` to bypass narrowing.
 
 ```typescript
 // ✅ Discriminated union
@@ -137,7 +147,7 @@ const user = UserSchema.parse(raw)  // throws if invalid ✅
 ```
 
 **Checklist:**
-- [ ] All unions have a `kind`/`type` discriminant field
+- [ ] All object-variant unions have a `kind`/`type` discriminant field
 - [ ] All `switch` on discriminant have `default: never` check
 - [ ] Zero `as` casts outside parse/test boundaries
 - [ ] Zero `!` assertions without an immediately-preceding null check
@@ -226,7 +236,7 @@ type ActiveStatus = Exclude<'draft' | 'published' | 'deleted', 'deleted'>
 
 ## [ts-async-errors] Async & Error Handling — CRITICAL
 
-**Rules:** Always `await` Promises. `catch(error: unknown)` + narrow. Use `Result<T, E>` for expected failures. Never `async` without `await`.
+**Rules:** Always `await` Promises. `catch(error: unknown)` + narrow. Use `Result<T, E>` for expected failures. Avoid `async` without `await` unless required by an interface.
 
 ```typescript
 // ✅ Result pattern
@@ -263,14 +273,14 @@ const [users, orders] = await Promise.all([db.users.findMany(), db.orders.findMa
 - [ ] Every Promise is `await`-ed or explicitly `void`-ed with comment
 - [ ] All `catch` use `unknown` + narrowing before property access
 - [ ] Expected failures return `Result<T, E>` — not `throw`
-- [ ] No `async` function without at least one `await` inside
+- [ ] Avoid `async` functions without at least one `await` inside (exceptions documented)
 - [ ] Re-throws use `{ cause: error }` for error chain
 
 ---
 
 ## [ts-modules-imports] Module & Import Structure — MAJOR
 
-**Rules:** Path aliases over `../..`. Barrel files only at public boundaries. `import type` for types. Consistent import order.
+**Rules:** Path aliases over `../..`. Barrels only at public boundaries (exceptions documented). `import type` for types. Consistent import order.
 
 ```typescript
 // tsconfig paths
@@ -286,23 +296,23 @@ import type { User } from '@types/user'    // 5. type-only
 
 ```typescript
 // ❌ import { User } from './types'  — use import type
-// ❌ import * as utils              — no star imports; use named imports
+// ❌ import * as utils              — avoid star imports; use named imports unless required by library
 // ❌ ../../../../lib/db             — use @lib/db alias
 // ❌ barrel re-exports everything   — only at feature public boundary
 ```
 
 **Checklist:**
 - [ ] `paths` in `tsconfig.json` — no `../../../` in codebase
-- [ ] Barrels only at feature entry points
+- [ ] Barrels only at feature entry points (exceptions documented)
 - [ ] All type-only imports use `import type`
 - [ ] Imports in 5-group order
-- [ ] No star imports (`import * as`) in application code
+- [ ] Avoid star imports (`import * as`) in application code unless library requires it
 
 ---
 
 ## [ts-patterns-anti-patterns] Patterns & Anti-Patterns — MAJOR
 
-**Rules:** No `any`. No `as`. Unions over `enum`. `satisfies` for literal inference + constraint. Never `object` type.
+**Rules:** Avoid `any` in application code. Avoid `as` outside validated boundaries. Prefer unions over `enum` (allow for interop). `satisfies` for literal inference + constraint. Avoid `object` type.
 
 ```typescript
 // ✅ unknown + narrowing — replaces any
@@ -324,7 +334,7 @@ const config = {
 
 // ✅ Record — typed map, never object
 function merge<T extends object, U extends object>(a: T, b: U): T & U {
-  return { ...a, ...b } as T & U
+  return { ...a, ...b }
 }
 ```
 
@@ -338,12 +348,151 @@ function merge<T extends object, U extends object>(a: T, b: U): T & U {
 ```
 
 **Checklist:**
-- [ ] Zero `any` — `unknown`, `never`, or proper types
+- [ ] No `any` in application code — `unknown`, `never`, or proper types (exceptions documented)
 - [ ] Zero `as` casts outside validated parse boundaries
-- [ ] Zero `enum` — use string literal union + `as const` array
-- [ ] Zero `object` type — use `Record<K, V>` or interface
+- [ ] Avoid `enum` — use string literal union + `as const` array unless interop requires it
+- [ ] Avoid `object` type — use `Record<K, V>` or interface
 - [ ] `satisfies` used when literal inference AND constraint both needed
 - [ ] Zero `@ts-ignore`; `@ts-expect-error` always has a comment
+
+---
+
+## [ts-project-references] Project References — MAJOR
+
+**Rules:** Use project references in multi-package repos. Enable `composite` and `declaration`. Build with `tsc -b`.
+
+```json
+// packages/api/tsconfig.json
+{ "compilerOptions": { "composite": true, "declaration": true }, "references": [{ "path": "../shared" }] }
+```
+
+**Checklist:**
+- [ ] Monorepos use project references
+- [ ] Referenced projects have `composite: true`
+
+---
+
+## [ts-module-resolution] Module Resolution & ESM/CJS — MAJOR
+
+**Rules:** Align `module`/`moduleResolution`/`target` with runtime. Do not mix ESM/CJS without intent.
+
+```json
+{ "compilerOptions": { "module": "NodeNext", "moduleResolution": "NodeNext", "target": "ES2022" } }
+```
+
+**Checklist:**
+- [ ] Module settings match runtime or bundler
+- [ ] ESM/CJS mode is consistent per package
+
+---
+
+## [ts-runtime-validation] Runtime Validation at Boundaries — CRITICAL
+
+**Rules:** Validate all untrusted input. Parse to `unknown` and validate with schema. Never cast raw data.
+
+```typescript
+const UserSchema = z.object({ id: z.string().uuid() })
+const user = UserSchema.parse(raw)
+```
+
+**Checklist:**
+- [ ] Boundary inputs are validated
+- [ ] No `as` casts for untrusted data
+
+---
+
+## [ts-env-config] Environment Configuration — CRITICAL
+
+**Rules:** Centralize env parsing. Validate required vars. Avoid scattered `process.env`.
+
+```typescript
+export const env = EnvSchema.parse(process.env)
+```
+
+**Checklist:**
+- [ ] Env vars are parsed once and validated
+- [ ] No direct `process.env` usage outside config
+
+---
+
+## [ts-error-handling] Error Handling Model — MAJOR
+
+**Rules:** Use typed error codes. Use `Result<T, E>` for expected failures. Preserve `cause`.
+
+```typescript
+class AppError extends Error { constructor(public readonly code: string, msg: string, opts?: { cause?: unknown }) { super(msg, opts) } }
+```
+
+**Checklist:**
+- [ ] Expected failures use `Result<T, E>`
+- [ ] Wrapped errors preserve `cause`
+
+---
+
+## [ts-immutable-updates] Immutable Updates — MAJOR
+
+**Rules:** Avoid mutating inputs. Prefer `Readonly` and structural sharing.
+
+```typescript
+const next = { ...user, name }
+```
+
+**Checklist:**
+- [ ] Inputs treated as immutable
+- [ ] Updates use structural sharing
+
+---
+
+## [ts-public-api-surface] Public API Surface — MAJOR
+
+**Rules:** Expose a clear public boundary. Avoid deep imports. Use `export type`.
+
+```typescript
+export { createClient } from './client'
+export type { ClientOptions } from './types'
+```
+
+**Checklist:**
+- [ ] Public exports are centralized
+- [ ] Consumers do not import deep internals
+
+---
+
+## [ts-testing-types] Types in Tests — MAJOR
+
+**Rules:** Keep tests type-safe. Avoid `as any`. Use `satisfies` or builders.
+
+```typescript
+const user = { id: 'u1', email: 'a@b.com' } satisfies User
+```
+
+**Checklist:**
+- [ ] Tests avoid `as any`
+- [ ] Fixtures are typed
+
+---
+
+## [ts-declaration-files] Declaration Files — MAJOR
+
+**Rules:** Keep ambient types in `types/`. Prefer module augmentation over globals.
+
+```typescript
+declare module 'express' { interface Request { userId?: string } }
+```
+
+**Checklist:**
+- [ ] Ambient declarations are scoped and minimal
+- [ ] Module augmentation preferred
+
+---
+
+## [ts-performance-types] Type System Performance — MAJOR
+
+**Rules:** Avoid deep recursive types and huge unions. Prefer simpler types.
+
+**Checklist:**
+- [ ] Recursive conditional types are limited and justified
+- [ ] Type complexity stays reasonable
 
 ---
 
@@ -351,8 +500,8 @@ function merge<T extends object, U extends object>(a: T, b: U): T & U {
 
 ### Critical (ship-blocking)
 - [ ] `strict: true`, `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes` in all tsconfig files
-- [ ] Zero `any` in source — `unknown` + narrowing instead
-- [ ] All unions have a discriminant; all `switch` have `default: never`
+- [ ] No `any` in application code — `unknown` + narrowing instead (exceptions documented)
+- [ ] All object-variant unions have a discriminant; all `switch` have `default: never`
 - [ ] All `catch` use `unknown` + narrow before property access
 - [ ] Every Promise is `await`-ed or explicitly `void`-ed
 
@@ -361,20 +510,20 @@ function merge<T extends object, U extends object>(a: T, b: U): T & U {
 - [ ] PATCH inputs use `Partial<Omit<T,...>>`, PUT inputs use `Required<Omit<T,...>>`
 - [ ] Path aliases configured; no `../../../` in imports
 - [ ] `import type` used for all type-only imports
-- [ ] Zero `enum` — string literal unions used instead
+- [ ] Avoid `enum` — string literal unions used instead unless interop requires it
 - [ ] Zero `as` casts outside parse/test boundaries
 
 ### Quick Violation Reference
 
 | Violation | Severity | Fix |
 |-----------|----------|-----|
-| `any` in source | critical | Use `unknown` + narrow |
+| `any` in application code | critical | Use `unknown` + narrow |
 | `strict: false` | critical | Enable `strict: true` |
 | `catch(e: Error)` | critical | `catch(e: unknown)` + narrow |
 | Unhandled Promise | critical | `await` or `void` with comment |
 | `as X` to bypass types | major | Narrow with `typeof`/`instanceof`/predicate |
 | Manual interface redeclaration | major | Use `Pick<T, K>` or `Omit<T, K>` |
-| `enum` | major | String literal union + `as const` |
+| `enum` | major | String literal union + `as const` (unless interop requires enum) |
 | `object` type | major | `Record<K, V>` or typed interface |
 | `../../../` imports | major | Path alias via `@lib/...` |
 | `import { T }` for type | major | `import type { T }` |

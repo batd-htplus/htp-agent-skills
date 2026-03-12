@@ -5,8 +5,13 @@
   "abstract": "Git Flow branching strategy, Conventional Commits format, Pull Request templates, and code review guidelines for collaborative development. Contains rules for branch naming, commit messages, PR workflow, code review, and Git Flow lifecycle.",
   "tags": ["git", "workflow", "commits", "pull-requests", "code-review", "branching"],
   "sections": [
-    { "id": "git-branch-commits", "title": "Branch Naming & Commits", "impact": "CRITICAL" },
-    { "id": "git-pr", "title": "Pull Request Workflow", "impact": "HIGH" },
-    { "id": "git-review", "title": "Code Review Guidelines", "impact": "MEDIUM" }
+    { "id": "git-branch-naming", "title": "Branch Naming Convention", "impact": "CRITICAL" },
+    { "id": "git-commit-conventional", "title": "Conventional Commits Format", "impact": "CRITICAL" },
+    { "id": "git-no-force-push", "title": "Never Force Push to Protected Branches", "impact": "CRITICAL" },
+    { "id": "git-pr-workflow", "title": "PR Workflow", "impact": "HIGH" },
+    { "id": "git-pr-template", "title": "Pull Request Template", "impact": "HIGH" },
+    { "id": "git-pr-size-rules", "title": "PR Size & Review Rules", "impact": "HIGH" },
+    { "id": "git-review-prefixes", "title": "Code Review Comment Prefixes", "impact": "MEDIUM" },
+    { "id": "git-flow-lifecycle", "title": "Git Flow Branch Lifecycle", "impact": "MEDIUM" }
   ]
 }

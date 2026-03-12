@@ -38,7 +38,14 @@ Activate when the user:
 - Asks about Git workflow, branching strategy, or commit conventions
 - Needs help with Git Flow, rebasing, or code review
 
-**Do not activate for:** Git internals, advanced Git commands, or non-collaborative workflows.
+**Do not activate for:** Git internals, advanced Git commands, or trunk-based/GitHub Flow workflows.
+
+---
+
+## Rule Interpretation
+
+- These rules assume a Git Flow workflow. If the team uses trunk-based or GitHub Flow, do not apply Git Flow-specific rules.
+- Exceptions should be documented in review notes.
 
 ---
 
@@ -87,7 +94,7 @@ references/          ← Supporting documentation
 scripts/             ← Helper scripts
   new-branch.sh
   commit-check.sh
-metadata.json        ← document metadata (version, tags)
+metadata.json        ← document metadata (version, tags, sections)
 ```
 
 ---

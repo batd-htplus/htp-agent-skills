@@ -11,11 +11,11 @@ tags: typescript, any, as, enum, satisfies, Record, unknown, never
 
 ## Rules
 
-1. **Never use `any` — use `unknown`, `never`, or a proper type** — `any` is a type hole that silently disables all safety downstream.
+1. **Avoid `any` — use `unknown`, `never`, or a proper type** — `any` is a type hole that silently disables all safety downstream. Allow it only in generated or third-party types with a brief justification.
 2. **Avoid type assertions (`as`) except at validated boundaries** — use narrowing instead; `as` hides real mismatches.
-3. **Prefer string literal unions over `enum`** — unions are erased at runtime, simpler to iterate, and work better with `as const`.
+3. **Prefer string literal unions over `enum`** — unions are erased at runtime, simpler to iterate, and work better with `as const`. Allow `enum` for interop with external APIs or legacy code.
 4. **Use `satisfies` instead of type annotation when you want both inference and constraint** — preserves literal types while still checking against the constraint.
-5. **Never use `object` type — use `Record<string, unknown>` or a typed interface** — `object` matches too broadly and loses key information.
+5. **Avoid `object` type — use `Record<string, unknown>` or a typed interface** — `object` matches too broadly and loses key information.
 
 ## ✅ Correct
 
@@ -89,10 +89,10 @@ function merge(a: object, b: object): object { ... }
 
 ## Checklist
 
-- [ ] Zero `any` in source code — use `unknown`, `never`, or proper types
+- [ ] No `any` in application code — use `unknown`, `never`, or proper types (exceptions must be justified)
 - [ ] Zero `as` casts outside parse/test boundaries — use narrowing
-- [ ] Zero `enum` declarations — use string literal unions + `as const` arrays
-- [ ] `object` type never appears — use `Record<K, V>` or typed interfaces
+- [ ] Avoid `enum` declarations — use string literal unions + `as const` arrays unless interop requires it
+- [ ] Avoid `object` type — use `Record<K, V>` or typed interfaces
 - [ ] `satisfies` used when both literal inference and constraint check are needed
 - [ ] No double cast (`as unknown as T`) anywhere
 - [ ] Zero `@ts-ignore`; `@ts-expect-error` only with a comment

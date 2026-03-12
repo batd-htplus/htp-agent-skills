@@ -1,13 +1,13 @@
 ---
-title: Coverage Requirements
-impact: CRITICAL
-impactDescription: Feature tests must achieve ≥70% coverage, Unit tests ≥80%. Critical flows must have 100% coverage.
+title: Coverage Targets
+impact: HIGH
+impactDescription: Recommended coverage targets; document exceptions for legacy code or low-risk areas.
 tags: testing, coverage, quality, metrics
 ---
 
-## Coverage Requirements
+## Coverage Targets
 
-Maintain minimum coverage thresholds to ensure code quality and catch bugs early.
+Aim for coverage targets to ensure code quality and catch bugs early. Document exceptions for legacy or low-risk areas.
 
 **Why it matters:** Coverage metrics help identify untested code and ensure critical paths are tested.
 

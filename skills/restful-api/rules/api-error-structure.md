@@ -9,7 +9,7 @@ tags: rest, errors, error_code, validation
 
 **Impact: HIGH**
 
-Errors MUST follow a consistent, machine-readable structure with `error_code` and `message`.
+Errors MUST follow a consistent, machine-readable structure with `error.code` and `error.message`.
 
 **Required shape:**
 
@@ -25,7 +25,7 @@ Errors MUST follow a consistent, machine-readable structure with `error_code` an
 }
 ```
 
-- `code` — Machine-readable constant (SCREAMING_SNAKE_CASE). Clients use for logic.
+- `code` — Machine-readable constant (SCREAMING_SNAKE_CASE). Clients use it for logic.
 - `message` — Human-readable description.
 - `details` — Optional array for field-level validation errors.
 

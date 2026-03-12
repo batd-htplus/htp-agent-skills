@@ -1,13 +1,13 @@
 ---
-title: Always Use Form Request Validation
+title: Prefer Form Request Validation
 impact: HIGH
-impactDescription: Never validate in the controller method body. Always extract to a FormRequest class.
+impactDescription: Prefer FormRequest classes for HTTP validation; document exceptions for console jobs or internal tooling.
 tags: api, validation, form-request, controllers
 ---
 
-## Always Use Form Request Validation
+## Prefer Form Request Validation
 
-Never validate in the controller method body. Always extract to a `FormRequest` class.
+Prefer extracting validation to a `FormRequest` class. If you validate in the controller for small internal endpoints, document the exception.
 
 **Why it matters:** FormRequests centralize validation logic, make it reusable, and keep controllers thin.
 
@@ -68,8 +68,8 @@ class StoreUserRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.unique'          => 'Email này đã được sử dụng.',
-            'password.confirmed'    => 'Xác nhận mật khẩu không khớp.',
+            'email.unique'          => 'This email is already in use.',
+            'password.confirmed'    => 'Password confirmation does not match.',
         ];
     }
 }

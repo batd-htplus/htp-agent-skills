@@ -20,7 +20,7 @@ A comprehensive Git workflow skill optimized for AI agents and LLMs.
 
 | Priority | Category | Impact | Prefix |
 |----------|----------|--------|--------|
-| 1 | Branch Naming & Commits | CRITICAL | `git-branch-`, `git-commit-` |
+| 1 | Branch Naming & Commits | CRITICAL | `git-branch-`, `git-commit-`, `git-no-force-push` |
 | 2 | Pull Request Workflow | HIGH | `git-pr-` |
 | 3 | Code Review Guidelines | MEDIUM | `git-review-`, `git-flow-` |
 

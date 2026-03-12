@@ -5,7 +5,7 @@ The section ID (in parentheses) is the filename prefix used to group rules.
 
 ---
 
-## 1. Branch Naming & Commits (git-branch-, git-commit-)
+## 1. Branch Naming & Commits (git-branch-, git-commit-, git-no-force-push)
 
 **Impact:** CRITICAL  
 **Description:** Branch naming conventions and Conventional Commits format ensure consistent Git history, easier navigation, and automated changelog generation. Never force push to protected branches.

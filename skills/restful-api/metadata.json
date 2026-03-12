@@ -1,8 +1,25 @@
 {
+  "id": "restful-api-best-practices",
   "version": "1.0.0",
-  "organization": "restful-api-best-practices",
-  "date": "February 2026",
+  "license": "MIT",
   "abstract": "Strict RESTful API design, review, and refactoring guidelines for AI agents and LLMs. Contains 10 rules covering resource-oriented URLs, HTTP methods, statelessness, status codes, error structure, collections/pagination, actions as sub-resources, naming conventions, versioning, and predictability. Use when designing, reviewing, or refactoring REST APIs.",
+  "tags": ["api", "rest", "http", "backend", "design", "review"],
+  "sections": [
+    { "id": "api-resource-oriented-urls", "title": "Resource-Oriented URLs", "impact": "CRITICAL" },
+    { "id": "api-http-methods", "title": "HTTP Methods Express Intent", "impact": "CRITICAL" },
+    { "id": "api-stateless", "title": "Stateless", "impact": "HIGH" },
+    { "id": "api-status-codes", "title": "Meaningful Status Codes", "impact": "CRITICAL" },
+    { "id": "api-error-structure", "title": "Machine-Readable Errors", "impact": "HIGH" },
+    { "id": "api-collections-pagination", "title": "Collections: Filtering, Sorting, Pagination", "impact": "HIGH" },
+    { "id": "api-actions-subresource", "title": "Actions as State Transitions", "impact": "HIGH" },
+    { "id": "api-naming-conventions", "title": "Naming Conventions", "impact": "MEDIUM" },
+    { "id": "api-versioning", "title": "Explicit Versioning", "impact": "HIGH" },
+    { "id": "api-boring-predictable", "title": "Boring by Design", "impact": "MEDIUM" },
+    { "id": "api-response-envelope", "title": "Consistent Response Envelope", "impact": "HIGH" },
+    { "id": "api-idempotency-retry", "title": "Idempotency & Retries", "impact": "HIGH" },
+    { "id": "api-auth-rate-limits", "title": "Auth & Rate Limit Headers", "impact": "HIGH" },
+    { "id": "api-pagination-links", "title": "Pagination Links", "impact": "MEDIUM" }
+  ],
   "references": [
     "https://restfulapi.net",
     "https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods",

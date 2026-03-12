@@ -10,7 +10,7 @@ Cách cài skill vào Cursor, Claude Code, v.v.: xem [README gốc repo — Supp
   - `_sections.md` — Section metadata (titles, impacts, descriptions)
   - `_template.md` — Template for creating new rules
   - `api-*.md` — Individual rule files
-- `metadata.json` — Document metadata (version, organization, abstract)
+- `metadata.json` — Document metadata (version, id, tags, sections)
 - **`AGENTS.md`** — Compiled output for agents
 - **`SKILL.md`** — Skill entry point and quick reference
 
@@ -26,8 +26,12 @@ Cách cài skill vào Cursor, Claude Code, v.v.: xem [README gốc repo — Supp
 | 6        | Collections     | `api-collections-`  |
 | 7        | Actions         | `api-actions-`      |
 | 8        | Naming          | `api-naming-`       |
-| 9        | Versioning      | `api-versioning`     |
+| 9        | Versioning      | `api-versioning`    |
 | 10       | Predictability  | `api-boring-`       |
+| 11       | Response Envelope | `api-response-envelope` |
+| 12       | Idempotency & Retries | `api-idempotency-retry` |
+| 13       | Auth & Rate Limits | `api-auth-rate-limits` |
+| 14       | Pagination Links | `api-pagination-links` |
 
 ## Creating a New Rule
 
@@ -49,4 +53,4 @@ Each rule file should have:
 
 ## Audit Script
 
-Run `./audit.sh <routes-file>` where the file has one route per line (e.g. `GET /v1/users`). The script checks Rules 1, 2, 8, 9 via pattern matching; other rules require manual review.
+No audit script is included. Use `AGENTS.md` and rule files for review.

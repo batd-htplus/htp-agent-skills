@@ -13,7 +13,7 @@ February 2026
 
 ## Abstract
 
-Strict RESTful API design and review guidelines for AI agents and LLMs. Contains 10 rules covering resource-oriented URLs, HTTP methods, statelessness, status codes, error structure, collections/pagination, actions as sub-resources, naming conventions, versioning, and predictability. Each rule includes correct vs incorrect examples to guide design and refactoring.
+Strict RESTful API design and review guidelines for AI agents and LLMs. Contains 14 rules covering resource-oriented URLs, HTTP methods, statelessness, status codes, error structure, collections/pagination, actions as sub-resources, naming conventions, versioning, predictability, response envelopes, idempotency, auth headers, and pagination links. Each rule includes correct vs incorrect examples to guide design and refactoring.
 
 ---
 
@@ -29,6 +29,10 @@ Strict RESTful API design and review guidelines for AI agents and LLMs. Contains
 8. [Naming Conventions](#8-naming-conventions) — **MEDIUM**
 9. [Explicit Versioning](#9-explicit-versioning) — **HIGH**
 10. [Boring by Design](#10-boring-by-design) — **MEDIUM**
+11. [Consistent Response Envelope](#11-consistent-response-envelope) — **HIGH**
+12. [Idempotency & Retries](#12-idempotency--retries) — **HIGH**
+13. [Auth & Rate Limit Headers](#13-auth--rate-limit-headers) — **HIGH**
+14. [Pagination Links](#14-pagination-links) — **MEDIUM**
 
 ---
 
@@ -78,7 +82,7 @@ No server-side session. Auth sent per request (e.g. `Authorization: Bearer <toke
 
 **Impact: CRITICAL**
 
-Never return 200 for errors. Use: 200 (OK), 201 (Created), 204 (No Content), 400 (Bad Request), 401 (Unauthorized), 403 (Forbidden), 404 (Not Found), 409 (Conflict), 422 (Unprocessable Entity), 429 (Too Many Requests), 500 (Internal Server Error). For 201 include `Location`; for 429 include `Retry-After`; for 401 include `WWW-Authenticate: Bearer`.
+Never return 200 for errors. Use: 200 (OK), 201 (Created), 204 (No Content), 400 (Bad Request), 401 (Unauthorized), 403 (Forbidden), 404 (Not Found), 409 (Conflict), 422 (Unprocessable Entity), 429 (Too Many Requests), 500 (Internal Server Error). Auth and rate-limit headers are defined in `Auth & Rate Limit Headers`.
 
 ---
 
@@ -127,6 +131,38 @@ Use URI versioning: `/v1/`, `/v2/`. Bump version for breaking changes (remove/re
 **Impact: MEDIUM**
 
 APIs should be predictable: same naming, same response shape, same error format. A developer should correctly guess `GET/POST/PATCH/DELETE /v1/invoices` and `POST /v1/invoices/{id}/send` without docs.
+
+---
+
+## 11. Consistent Response Envelope
+
+**Impact: HIGH**
+
+Success responses SHOULD use a consistent envelope: `data` with optional `meta` and `links`.
+
+---
+
+## 12. Idempotency & Retries
+
+**Impact: HIGH**
+
+For non-idempotent POST creates, support safe retries via `Idempotency-Key` and return the same response for duplicate keys.
+
+---
+
+## 13. Auth & Rate Limit Headers
+
+**Impact: HIGH**
+
+401 responses include `WWW-Authenticate: Bearer`. 429 responses include `Retry-After`. Optional rate limit headers are recommended.
+
+---
+
+## 14. Pagination Links
+
+**Impact: MEDIUM**
+
+Collections SHOULD include navigation links alongside `meta` for pagination.
 
 ---
 

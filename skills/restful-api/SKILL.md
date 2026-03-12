@@ -48,12 +48,16 @@ Do NOT activate for: GraphQL, gRPC/Protobuf, WebSocket protocol design, or inter
 | 2        | HTTP Methods    | CRITICAL | `api-http-`     |
 | 3        | Stateless       | HIGH     | `api-stateless` |
 | 4        | Status Codes    | CRITICAL | `api-status-`   |
-| 5        | Error Structure | HIGH     | `api-error-`     |
+| 5        | Error Structure | HIGH     | `api-error-`    |
 | 6        | Collections     | HIGH     | `api-collections-` |
 | 7        | Actions         | HIGH     | `api-actions-`  |
 | 8        | Naming          | MEDIUM   | `api-naming-`   |
 | 9        | Versioning      | HIGH     | `api-versioning` |
 | 10       | Predictability  | MEDIUM   | `api-boring-`   |
+| 11       | Response Envelope | HIGH   | `api-response-envelope` |
+| 12       | Idempotency & Retries | HIGH | `api-idempotency-retry` |
+| 13       | Auth & Rate Limits | HIGH | `api-auth-rate-limits` |
+| 14       | Pagination Links | MEDIUM | `api-pagination-links` |
 
 ## File Map
 
@@ -61,10 +65,10 @@ Do NOT activate for: GraphQL, gRPC/Protobuf, WebSocket protocol design, or inter
 SKILL.md             ← you are here (entry point + quick ref)
 AGENTS.md            ← full compiled rules for agents (4.9KB, 140 lines)
 rules/
-  _sections.md       ← index of all 10 sections with impact levels
+  _sections.md       ← index of all sections with impact levels
   _template.md       ← template for creating new rules
-  api-resource-*.md   ← Resource URLs (1 rule)
-  api-http-*.md       ← HTTP Methods (1 rule)
+  api-resource-*.md  ← Resource URLs (1 rule)
+  api-http-*.md      ← HTTP Methods (1 rule)
   api-stateless.md   ← Stateless (1 rule)
   api-status-*.md    ← Status Codes (1 rule)
   api-error-*.md     ← Error Structure (1 rule)
@@ -73,8 +77,11 @@ rules/
   api-naming-*.md    ← Naming (1 rule)
   api-versioning.md  ← Versioning (1 rule)
   api-boring-*.md    ← Predictability (1 rule)
-metadata.json         ← document metadata (version, maintainer, tags)
-audit.sh              ← audit script for route validation (optional)
+  api-response-envelope.md ← Response envelope
+  api-idempotency-retry.md  ← Idempotency & retries
+  api-auth-rate-limits.md   ← Auth & rate limits
+  api-pagination-links.md   ← Pagination links
+metadata.json         ← document metadata (version, id, tags, sections)
 ```
 
 ---
@@ -91,6 +98,10 @@ audit.sh              ← audit script for route validation (optional)
 - `api-naming-conventions` — kebab-case URLs, snake_case JSON, plural, `{id}`
 - `api-versioning` — `/v1/`, `/v2/` for breaking changes
 - `api-boring-predictable` — Predictable, guessable endpoints
+- `api-response-envelope` — Consistent success response envelope (`data`, optional `meta`, `links`)
+- `api-idempotency-retry` — Safe retries via `Idempotency-Key`
+- `api-auth-rate-limits` — Auth and throttling headers
+- `api-pagination-links` — Pagination navigation links
 
 ---
 
@@ -112,6 +123,7 @@ audit.sh              ← audit script for route validation (optional)
 5. Apply versioning: `/v1/`, `/v2/`
 6. Define error structure (see `rules/api-error-structure.md`)
 7. Define collection params: `?page`, `?limit`, `?sort`, `?filter[field]`
+8. Define response envelope and pagination links (if collections)
 
 ### Output format (review)
 
@@ -170,7 +182,7 @@ For the complete guide in one place: **`AGENTS.md`**
 
 ### Reviewing an Existing API
 
-1. Run through all 10 rules in `rules/` (or use `AGENTS.md`).
+1. Run through all rules in `rules/` (or use `AGENTS.md`).
 2. For each violation: state rule, explain why, give corrected endpoint.
 3. Summarize by severity: Critical (wrong method, verb in URL, 200 for errors), Major (no versioning, no pagination, inconsistent naming), Minor (nesting, missing PATCH).
 
@@ -190,18 +202,12 @@ For the complete guide in one place: **`AGENTS.md`**
 - [ ] Resources plural
 - [ ] HTTP methods match intent (no GET for mutations)
 - [ ] No 200 for errors
-- [ ] Error responses include `error_code` and `message`
+- [ ] Error responses include `error.code` and `error.message`
 - [ ] Collections support `?page`, `?limit`, `?sort`
 - [ ] Actions as `POST /{resource}/{id}/{action}`
 - [ ] Routes prefixed with `/v{n}/`
 - [ ] Naming consistent (kebab-case, snake_case in JSON)
 - [ ] Stateless auth
-
----
-
-## Audit Script
-
-Run `./audit.sh <routes-file>` (one route per line, e.g. `GET /v1/users`). Covers Rules 1, 2, 8, 9 via pattern matching; others need manual review.
 
 ---
 

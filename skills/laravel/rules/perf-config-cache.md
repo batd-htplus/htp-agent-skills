@@ -1,17 +1,17 @@
 ---
 title: Config, Route & View Caching
 impact: HIGH
-impactDescription: Always run optimization commands on deployment to cache config, routes, views, and events.
+impactDescription: Prefer optimization commands on deployment; document exceptions for platforms that manage caching differently.
 tags: performance, caching, deployment, optimization
 ---
 
 ## Config, Route & View Caching
 
-Always run these optimization commands on deployment to improve performance.
+Prefer running these optimization commands on deployment to improve performance. If your platform manages caching differently, document the exception.
 
 **Why it matters:** Caching config, routes, and views dramatically reduces bootstrap time and improves response times.
 
-**Always run on deployment:**
+**Prefer on deployment:**
 
 ```bash
 php artisan config:cache    # Cache all config files

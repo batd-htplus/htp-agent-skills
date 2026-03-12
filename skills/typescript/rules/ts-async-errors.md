@@ -14,7 +14,7 @@ tags: typescript, async, Promise, Result, catch unknown, Promise.all
 1. **Always `await` Promises — never fire-and-forget** — unhandled rejections are silent production bugs; use `void` only when intentional and documented.
 2. **Type `catch` clause variables as `unknown`, not `Error`** — the thrown value may be anything; narrow before accessing properties.
 3. **Use a typed `Result<T, E>` pattern for expected failures** — distinguish expected domain errors (validation, not found) from unexpected crashes.
-4. **Never use `async` without `await` inside the function body** — it adds unnecessary microtask overhead and signals confusion.
+4. **Avoid `async` without `await` inside the function body** — it adds unnecessary microtask overhead and signals confusion. Allow when required by an interface, with a comment.
 
 ## ✅ Correct
 
@@ -97,7 +97,7 @@ catch { }
 - [ ] All `catch` clauses use `unknown` and narrow before property access
 - [ ] Expected failures return `Result<T, E>` — not `throw`
 - [ ] Independent async operations use `Promise.all` or `Promise.allSettled`
-- [ ] No `async` function without at least one `await` in its body
+- [ ] Avoid `async` functions without at least one `await` in the body (exceptions documented)
 - [ ] Re-throws use `{ cause: error }` for error chain
 
 ## See Also

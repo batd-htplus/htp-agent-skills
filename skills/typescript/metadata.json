@@ -13,6 +13,16 @@
     { "id": "ts-generics", "title": "Generics", "impact": "MAJOR" },
     { "id": "ts-utility-types", "title": "Utility Types", "impact": "MAJOR" },
     { "id": "ts-modules-imports", "title": "Module & Import Structure", "impact": "MAJOR" },
-    { "id": "ts-patterns-anti-patterns", "title": "Patterns & Anti-Patterns", "impact": "MAJOR" }
+    { "id": "ts-patterns-anti-patterns", "title": "Patterns & Anti-Patterns", "impact": "MAJOR" },
+    { "id": "ts-project-references", "title": "Project References", "impact": "MAJOR" },
+    { "id": "ts-module-resolution", "title": "Module Resolution & ESM/CJS Alignment", "impact": "MAJOR" },
+    { "id": "ts-runtime-validation", "title": "Runtime Validation at Boundaries", "impact": "CRITICAL" },
+    { "id": "ts-env-config", "title": "Environment Configuration", "impact": "CRITICAL" },
+    { "id": "ts-error-handling", "title": "Error Handling Model", "impact": "MAJOR" },
+    { "id": "ts-immutable-updates", "title": "Immutable Updates", "impact": "MAJOR" },
+    { "id": "ts-public-api-surface", "title": "Public API Surface", "impact": "MAJOR" },
+    { "id": "ts-testing-types", "title": "Types in Tests", "impact": "MAJOR" },
+    { "id": "ts-declaration-files", "title": "Declaration Files (.d.ts)", "impact": "MAJOR" },
+    { "id": "ts-performance-types", "title": "Type System Performance", "impact": "MAJOR" }
   ]
 }

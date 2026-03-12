@@ -7,7 +7,8 @@ tags: coding-standards, repository, architecture, database
 
 ## Repository Pattern
 
-All database access MUST go through a Repository. Direct Eloquent calls in Controllers or Services are not allowed.
+Default: database access goes through a Repository. Direct Eloquent calls in Controllers or Services should be avoided.
+Exception: small read-only endpoints or internal tools may use Eloquent directly if justified in code review.
 
 **Why it matters:** Repository pattern abstracts database access, makes code testable, and allows switching implementations.
 
@@ -61,6 +62,24 @@ class UserRepository implements UserRepositoryInterface
     public function create(array $data): User
     {
         return $this->model->create($data);
+    }
+
+    public function findByEmail(string $email): ?User
+    {
+        return $this->model->where('email', $email)->first();
+    }
+
+    public function update(int $id, array $data): User
+    {
+        $user = $this->model->findOrFail($id);
+        $user->update($data);
+
+        return $user;
+    }
+
+    public function delete(int $id): bool
+    {
+        return (bool) $this->model->whereKey($id)->delete();
     }
 
     public function paginate(int $perPage = 15): LengthAwarePaginator

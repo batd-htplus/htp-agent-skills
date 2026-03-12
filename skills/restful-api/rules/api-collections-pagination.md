@@ -9,7 +9,7 @@ tags: rest, collections, pagination, filter, sort
 
 **Impact: HIGH**
 
-Collection endpoints MUST support query parameters for filtering, sorting, and pagination.
+Collection endpoints MUST support query parameters for filtering, sorting, and pagination for large datasets. Document exceptions for small, bounded collections.
 
 **Required query parameters:**
 

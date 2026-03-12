@@ -1,13 +1,13 @@
 ---
-title: Always Use API Resources
+title: Prefer API Resources
 impact: HIGH
-impactDescription: Never return raw model arrays. Always transform with JsonResource for consistent API responses.
+impactDescription: Prefer JsonResource for consistent responses; document exceptions for internal/admin endpoints.
 tags: api, resources, json-resource, transformation
 ---
 
-## Always Use API Resources
+## Prefer API Resources
 
-Never return raw model arrays. Always transform with `JsonResource` for consistent API responses.
+Prefer `JsonResource` for consistent API responses. If you return raw models for internal/admin endpoints, document the exception.
 
 **Why it matters:** API Resources provide consistent formatting, hide sensitive fields, and allow conditional inclusion of relationships.
 
@@ -49,11 +49,8 @@ class UserResource extends JsonResource
                 $this->whenLoaded('orders')
             ),
 
-            // Conditional: only include in specific routes
-            'token' => $this->when(
-                $request->routeIs('v1.auth.*'),
-                fn () => $this->createToken('api')->plainTextToken
-            ),
+            // Conditional: only include fields when appropriate
+            // Never create tokens or perform side effects in a Resource
         ];
     }
 }
@@ -73,6 +70,20 @@ return response()->json([
             'total'        => $users->total(),
             'last_page'    => $users->lastPage(),
         ],
+    ],
+    ]);
+```
+
+**Token creation should happen in controller/service, not in Resource:**
+
+```php
+$token = $user->createToken('api');
+
+return response()->json([
+    'success' => true,
+    'data'    => [
+        'user'  => new UserResource($user),
+        'token' => $token->plainTextToken,
     ],
 ]);
 ```

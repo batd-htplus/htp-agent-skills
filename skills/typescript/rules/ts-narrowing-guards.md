@@ -11,7 +11,7 @@ tags: typescript, narrowing, discriminated union, type predicate, never, zod
 
 ## Rules
 
-1. **Use discriminated unions with a `kind`/`type` field** — enables exhaustive narrowing with zero runtime cost.
+1. **Use discriminated unions with a `kind`/`type` field for object-variant unions** — enables exhaustive narrowing with zero runtime cost.
 2. **Write type predicates (`is`) for reusable narrowing logic** — encapsulate complex narrowing into typed functions.
 3. **Use `never` for exhaustiveness checks** — guarantee at compile time that every union member is handled.
 4. **Never use `as` casting to bypass narrowing** — casting hides real type errors; narrow properly instead.
@@ -101,7 +101,7 @@ function getEmail(user: User | null) {
 
 ## Checklist
 
-- [ ] All union types have a discriminant field (`kind`, `type`, `status`)
+- [ ] All object-variant unions have a discriminant field (`kind`, `type`, `status`)
 - [ ] `switch` on discriminant always has a `default: never` exhaustiveness check
 - [ ] Reusable narrowing logic is in a named type predicate (`x is T`)
 - [ ] Zero non-null assertions (`!`) without an immediately-preceding guard

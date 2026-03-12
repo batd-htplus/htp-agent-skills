@@ -38,7 +38,7 @@ tags: api, response, json, format
     "success": true,
     "data": {
         "id": 1,
-        "name": "Nguyen Van A",
+        "name": "John Doe",
         "email": "nva@example.com",
         "created_at": "2024-01-15T08:30:00Z"
     }

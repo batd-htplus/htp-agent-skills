@@ -9,7 +9,7 @@ tags: rest, versioning, v1, breaking
 
 **Impact: HIGH**
 
-APIs MUST use URI versioning for breaking changes.
+Prefer URI versioning for breaking changes. Header versioning is acceptable if documented and consistently applied.
 
 **Correct:**
 
@@ -28,4 +28,4 @@ APIs MUST use URI versioning for breaking changes.
 - Query param versioning (`?version=2`) — fragile, avoid ❌
 - Minor in URL (`/v1.0/`) — over-engineered for most APIs ❌
 
-Header versioning (`Accept: application/vnd.api.v2+json`) is an acceptable alternative but URI versioning is simpler and more visible.
+Header versioning (`Accept: application/vnd.api.v2+json`) is an acceptable alternative but must be documented and consistently applied.

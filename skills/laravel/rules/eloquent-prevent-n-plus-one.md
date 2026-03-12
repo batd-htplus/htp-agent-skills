@@ -1,13 +1,13 @@
 ---
-title: Prevent N+1 Queries — Always Eager Load
+title: Prevent N+1 Queries
 impact: CRITICAL
-impactDescription: This is the most common Laravel performance bug. Always eager load relationships to prevent N+1 queries.
+impactDescription: Eager load when you will access relationships to avoid N+1 queries.
 tags: eloquent, performance, queries, relationships
 ---
 
-## Prevent N+1 Queries — Always Eager Load
+## Prevent N+1 Queries
 
-**This is the most common Laravel performance bug.** Always eager load relationships to prevent N+1 queries.
+**This is the most common Laravel performance bug.** Eager load relationships when you will access them.
 
 **Why it matters:** N+1 queries can cause hundreds of unnecessary database queries, severely impacting performance.
 

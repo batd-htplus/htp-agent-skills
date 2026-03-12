@@ -11,7 +11,7 @@ Define named rate limiters and apply them to endpoints to prevent abuse.
 
 **Why it matters:** Rate limiting prevents API abuse, protects against DDoS attacks, and ensures fair resource usage.
 
-**Define rate limiters in `RouteServiceProvider`:**
+**Define rate limiters (Laravel 10+: `RouteServiceProvider`, Laravel 11: `AppServiceProvider`/`bootstrap/app.php`):**
 
 ```php
 RateLimiter::for('api', function (Request $request) {
