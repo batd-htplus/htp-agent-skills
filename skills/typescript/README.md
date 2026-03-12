@@ -2,7 +2,7 @@
 
 Strict TypeScript best practices for production-grade codebases, optimized for agents and LLMs.
 
-Cách cài skill vào Cursor, Claude Code, v.v.: xem [README gốc repo — Supported Platforms](../../README.md#supported-platforms-42-agents).
+For installation in Cursor, Claude Code, etc., see the repo README: [Supported Platforms](../../README.md#supported-platforms-42-agents).
 
 ## Structure
 
