@@ -1,32 +1,41 @@
 ---
-title: PR Size & Review Rules
+title: Merge Request Size & Review Rules (GitLab)
 impact: HIGH
-impactDescription: PR size limits, approval requirements, and CI checks ensure code quality and maintainability. PRs should be ≤400 lines, require approval, and pass all checks.
-tags: git, pull-request, code-review, quality
+impactDescription: GitLab MR size limits, approvals, and pipeline gates reduce review risk and improve merge quality.
+tags: git, gitlab, merge-request, code-review, quality
 ---
 
-## PR Size & Review Rules
+## Merge Request Size & Review Rules (GitLab)
 
-Follow PR size limits, approval requirements, and CI checks to ensure code quality.
+Apply these rules to every GitLab Merge Request (MR).
 
-**Why it matters:** Smaller PRs are easier to review, reduce risk, and maintain code quality. Approval requirements ensure code is reviewed by peers.
+## Size Targets (GitLab diff)
 
-**Rules:**
+- Target MR size: <= 400 changed lines (`+` and `-` in GitLab diff)
+- Preferred MR size: <= 200 changed lines
+- If > 400 lines, split into stacked MRs unless change is indivisible
+- If > 800 lines, approval from tech lead is required with written risk note
 
-- **PR size:** **≤ 400 lines** changed (strongly recommended)
-- **Minimum 1 approval** before merge
-- **Author must not self-merge** (except hotfixes with team notification)
-- **All CI checks must pass** before merge
-- **Resolve all comments** before merge
+## Review and Merge Gates
 
-**Why ≤400 lines:**
-- Easier to review thoroughly
-- Faster to understand changes
-- Reduces risk of introducing bugs
-- Easier to test and verify
+- Minimum 1 non-author approval
+- Author does not self-merge (except emergency hotfix per team policy)
+- All required GitLab pipelines/jobs pass
+- All blocking discussions are resolved
+- MR title/body follow `git-pr-template.md`
 
-**Exceptions:**
-- Large refactorings may exceed 400 lines but should be broken into smaller PRs when possible
-- Hotfixes may require faster merge but still need approval
+## When MR Is Large
 
-**See also:** `git-pr-template.md`, `git-review-prefixes.md`
+If MR exceeds target size, include in description:
+
+- Why split is not possible (or link to stacked MRs)
+- Risk areas and rollback strategy
+- Focused review guide (files/modules reviewers should check first)
+
+## Exceptions
+
+- Generated files, lockfiles, and snapshots may exceed limits when justified
+- Repo-wide codemods/refactors are allowed with staged rollout plan
+- Emergency hotfixes may be fast-tracked but still require post-merge review
+
+**See also:** `git-pr-template.md`, `git-pr-workflow.md`, `git-review-prefixes.md`

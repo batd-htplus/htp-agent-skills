@@ -20,14 +20,56 @@ Errors MUST follow a consistent, machine-readable structure with `error.code` an
     "message": "The requested user does not exist.",
     "details": [
       { "field": "user_id", "issue": "No user found with this ID." }
-    ]
+    ],
+    "request_id": "req_01J9..." 
   }
 }
 ```
 
 - `code` — Machine-readable constant (SCREAMING_SNAKE_CASE). Clients use it for logic.
-- `message` — Human-readable description.
-- `details` — Optional array for field-level validation errors.
+- `message` — Human-readable description (safe to show to end users; do not leak internals).
+- `details` — Optional array for field-level or item-level errors (validation, conflicts, partial failures).
+- `request_id` — Recommended identifier to correlate logs/traces with support tickets (also commonly returned via `X-Request-Id` header).
+
+### Details shape (recommended)
+
+When `details` is present, each item SHOULD be an object with stable keys:
+
+```json
+{ "field": "email", "issue": "must be a valid email", "location": "body" }
+```
+
+Avoid nested ad-hoc strings/arrays that clients cannot reliably parse.
+
+### Examples
+
+**Validation error (422):**
+
+```json
+{
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Validation failed.",
+    "details": [
+      { "field": "email", "issue": "must be a valid email", "location": "body" }
+    ],
+    "request_id": "req_01J9..."
+  }
+}
+```
+
+**Rate limit (429):**
+
+```json
+{
+  "error": {
+    "code": "RATE_LIMIT_EXCEEDED",
+    "message": "Too many requests.",
+    "details": [],
+    "request_id": "req_01J9..."
+  }
+}
+```
 
 **Incorrect:**
 
@@ -35,6 +77,9 @@ Errors MUST follow a consistent, machine-readable structure with `error.code` an
 { "msg": "not found" }                     ❌ no code
 { "error": true, "description": "..." }   ❌ no machine-readable code
 { "status": "fail" }                      ❌ useless to clients
+{ "error": "USER_NOT_FOUND" }             ❌ code must be structured, not overloaded
 ```
 
-**Standard codes (examples):** `USER_NOT_FOUND`, `USER_EMAIL_TAKEN`, `ORDER_ALREADY_CANCELLED`, `VALIDATION_ERROR`, `RATE_LIMIT_EXCEEDED`. Never expose stack traces or internal paths in 500 responses.
+**Standard codes (examples):** `USER_NOT_FOUND`, `USER_EMAIL_TAKEN`, `ORDER_ALREADY_CANCELLED`, `VALIDATION_ERROR`, `RATE_LIMIT_EXCEEDED`.
+
+Never expose stack traces, SQL queries, internal file paths, or infrastructure identifiers in 500 responses; keep `message` generic and use `request_id` for diagnosis.

@@ -1,0 +1,81 @@
+{
+    "name": "test-design-techniques",
+    "version": "1.0.2",
+    "description": "A rule-driven skill package for designing effective unit tests using ISTQB-aligned test design techniques. Covers Boundary Value Analysis (BVA), Equivalence Partitioning (EP), risk-based prioritization, negative testing, edge-case taxonomy, and suite optimization.",
+    "tags": [
+        "testing",
+        "unit-test",
+        "qa",
+        "validation",
+        "istqb",
+        "boundary-value-analysis",
+        "equivalence-partitioning",
+        "risk-based-testing",
+        "test-design",
+        "tdd"
+    ],
+    "author": "QA Architecture Team",
+    "sections": [
+        {
+            "id": "unit-test-fundamentals",
+            "title": "Unit Test Fundamentals",
+            "impact": "high",
+            "rules": [
+                "use-arrange-act-assert",
+                "isolate-units-with-test-doubles",
+                "ensure-deterministic-tests",
+                "prefer-specific-assertions"
+            ]
+        },
+        {
+            "id": "core-test-design",
+            "title": "Core Test Design",
+            "impact": "high",
+            "rules": [
+                "apply-boundary-value-analysis",
+                "apply-equivalence-partitioning",
+                "ensure-positive-coverage",
+                "design-negative-test-cases"
+            ]
+        },
+        {
+            "id": "validation-input-handling",
+            "title": "Validation & Input Handling",
+            "impact": "high",
+            "rules": [
+                "enforce-input-validation",
+                "cover-edge-cases"
+            ]
+        },
+        {
+            "id": "optimization-strategy",
+            "title": "Optimization & Strategy",
+            "impact": "medium",
+            "rules": [
+                "minimize-redundant-test-cases",
+                "prioritize-risk-based-testing",
+                "separate-test-concerns"
+            ]
+        }
+    ],
+    "application_order": [
+        "use-arrange-act-assert",
+        "isolate-units-with-test-doubles",
+        "ensure-deterministic-tests",
+        "prefer-specific-assertions",
+        "prioritize-risk-based-testing",
+        "apply-equivalence-partitioning",
+        "apply-boundary-value-analysis",
+        "ensure-positive-coverage",
+        "design-negative-test-cases",
+        "enforce-input-validation",
+        "cover-edge-cases",
+        "separate-test-concerns",
+        "minimize-redundant-test-cases"
+    ],
+    "compatible_with": [
+        "any unit testing framework",
+        "any programming language",
+        "any project type"
+    ]
+}

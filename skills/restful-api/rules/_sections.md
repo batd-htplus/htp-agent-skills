@@ -74,3 +74,23 @@ The section ID (in parentheses) is the filename prefix used to group rules.
 
 **Impact:** MEDIUM  
 **Description:** Provide pagination navigation links for collection responses.
+
+## 15. Content Negotiation (api-content-negotiation)
+
+**Impact:** HIGH  
+**Description:** Use `Content-Type` and `Accept` consistently; return 415/406 when media types are unsupported.
+
+## 16. Caching & ETags (api-caching-etag)
+
+**Impact:** MEDIUM  
+**Description:** Support conditional requests for cacheable GETs using `ETag`/`If-None-Match` and return 304 when appropriate.
+
+## 17. Long-Running Operations (api-async-jobs)
+
+**Impact:** HIGH  
+**Description:** Model long-running work as a Job resource: return 202 Accepted with `Location`, poll job status, and avoid blocking requests.
+
+## 18. Deprecation & Sunset (api-deprecation-sunset)
+
+**Impact:** MEDIUM  
+**Description:** Make breaking changes predictable: announce deprecations, include a sunset date, and provide migration guidance before removal.

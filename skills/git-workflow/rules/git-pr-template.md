@@ -7,44 +7,85 @@ tags: git, pull-request, template, checklist
 
 ## Pull Request Template
 
-Every PR MUST be filled out completely. Use this template (save as `.github/pull_request_template.md`):
+Every PR MUST be complete, actionable, and review-ready.
+Use this template in `.github/pull_request_template.md`.
 
-**Why it matters:** PR template ensures all necessary information is provided, proper checklist is followed, and reviewers have context to make informed decisions.
+## Writing Rules
 
-**✅ PR Template:**
+- Keep title and summary specific
+- Separate included scope from excluded scope
+- Provide reproducible test steps
+- Link ticket/spec references
+- Do not leave placeholder text in final PR
+
+## Template
 
 ```markdown
-## 📋 Description
-<!-- What does this PR do? -->
+## Title
+[TYPE](ID-12345): short imperative summary
 
-## 🎫 Ticket
-Closes #TICKET_ID
+Allowed TYPE: `BUG` `FEAT` `HOTFIX` `REFACTOR` `CHORE` `DOCS`
+If no tracking ticket exists, use `ID-N/A` and explain why in Description.
 
-## 🔄 Type of Change
-- [ ] Bug fix (non-breaking)
-- [ ] New feature (non-breaking)
-- [ ] Breaking change
-- [ ] Refactor / Performance
-- [ ] Documentation update
-- [ ] CI/CD change
+## Description
+What changed and why. Keep to 3-8 bullets or short paragraphs.
 
-## ✅ Checklist
-- [ ] Code follows coding standards (PSR-12, strict_types)
-- [ ] Self-reviewed my own code
-- [ ] Tests written and passing
-- [ ] No debug code (dd(), dump(), var_dump())
-- [ ] No .env or secrets committed
-- [ ] API documentation updated (if applicable)
-- [ ] Migration has down() method
-- [ ] PHPStan passes (level 8)
-- [ ] Laravel Pint passes
+## Scope
+Included:
+- ...
 
-## 🧪 How to Test
-<!-- Step-by-step instructions to test this change -->
-1. 
-2. 
+Not included:
+- ...
 
-## 📸 Screenshots (if applicable)
+## Ticket
+- Ticket: ID-12345
+- Reference: <ticket_url>
+
+## Labels
+- Type: `type/bug` | `type/feature` | `type/hotfix` | `type/refactor` | `type/chore` | `type/docs`
+- Area: `area/<module>`
+- Risk: `risk/low` | `risk/medium` | `risk/high`
+- Optional: `breaking-change`, `needs-migration`, `needs-docs`
+
+## References
+- Related PRs: #...
+- Related docs/specs: ...
+
+## Type of Change
+- [ ] BUG
+- [ ] FEAT
+- [ ] HOTFIX
+- [ ] REFACTOR
+- [ ] CHORE
+- [ ] DOCS
+- [ ] BREAKING CHANGE
+
+## Checklist
+- [ ] Self-reviewed
+- [ ] Tests added/updated (or justified why not)
+- [ ] CI is green
+- [ ] No secrets committed
+- [ ] Backward compatibility assessed (or marked as BREAKING CHANGE)
+- [ ] Docs updated (if applicable)
+- [ ] Migration includes rollback (if applicable)
+
+## How to Test
+Step-by-step instructions to validate the change.
+1. ...
+2. ...
+
+## Evidence
+- Screenshots / logs / API responses (if applicable)
 ```
+
+## Rejection Criteria
+
+PR is not ready for review if any of these applies:
+
+- Missing ticket reference without explanation
+- Empty or generic description ("update code", "fix bug")
+- No test instructions for behavioral changes
+- Checklist not completed
+- PR title does not follow `[TYPE](ID-<number>): ...`
 
 **See also:** `git-pr-size-rules.md`, `git-review-prefixes.md`

@@ -1,6 +1,6 @@
 # RESTful API Skills
 
-**Version 1.0.0**  
+**Version 1.1.1**  
 restful-api-best-practices  
 February 2026
 
@@ -13,7 +13,7 @@ February 2026
 
 ## Abstract
 
-Strict RESTful API design and review guidelines for AI agents and LLMs. Contains 14 rules covering resource-oriented URLs, HTTP methods, statelessness, status codes, error structure, collections/pagination, actions as sub-resources, naming conventions, versioning, predictability, response envelopes, idempotency, auth headers, and pagination links. Each rule includes correct vs incorrect examples to guide design and refactoring.
+Strict RESTful API design and review guidelines for AI agents and LLMs. Contains 18 rules covering resource-oriented URLs, HTTP methods, statelessness, status codes, error structure, collections/pagination, actions as sub-resources, naming conventions, versioning, predictability, response envelopes, idempotency, auth headers, pagination links, content negotiation, caching/ETags, async jobs, and deprecation/sunset. Each rule includes correct vs incorrect examples to guide design and refactoring.
 
 ---
 
@@ -33,6 +33,10 @@ Strict RESTful API design and review guidelines for AI agents and LLMs. Contains
 12. [Idempotency & Retries](#12-idempotency--retries) — **HIGH**
 13. [Auth & Rate Limit Headers](#13-auth--rate-limit-headers) — **HIGH**
 14. [Pagination Links](#14-pagination-links) — **MEDIUM**
+15. [Content Negotiation (Accept/Content-Type)](#15-content-negotiation-acceptcontent-type) — **HIGH**
+16. [Caching & ETags](#16-caching--etags) — **MEDIUM**
+17. [Long-Running Operations as Jobs](#17-long-running-operations-as-jobs) — **HIGH**
+18. [Deprecation & Sunset](#18-deprecation--sunset) — **MEDIUM**
 
 ---
 
@@ -90,7 +94,7 @@ Never return 200 for errors. Use: 200 (OK), 201 (Created), 204 (No Content), 400
 
 **Impact: HIGH**
 
-All errors MUST use: `{ "error": { "code": "SCREAMING_SNAKE_CASE", "message": "...", "details": [] } }`. Clients use `code` for logic. No ad-hoc shapes like `{ "msg": "..." }` or `{ "status": "fail" }`.
+All errors MUST use: `{ "error": { "code": "SCREAMING_SNAKE_CASE", "message": "...", "details": [], "request_id": "..." } }`. Clients use `code` for logic; `request_id` is for support/debugging. No ad-hoc shapes like `{ "msg": "..." }` or `{ "status": "fail" }`.
 
 ---
 
@@ -138,7 +142,7 @@ APIs should be predictable: same naming, same response shape, same error format.
 
 **Impact: HIGH**
 
-Success responses SHOULD use a consistent envelope: `data` with optional `meta` and `links`.
+Success responses SHOULD use a consistent envelope: `data` with optional `meta` and `links` (omit `meta`/`links` when not needed; do not return empty objects). For `204 No Content`, return no body.
 
 ---
 
@@ -163,6 +167,50 @@ For non-idempotent POST creates, support safe retries via `Idempotency-Key` and 
 **Impact: MEDIUM**
 
 Collections SHOULD include navigation links alongside `meta` for pagination.
+
+---
+
+## 15. Content Negotiation (Accept/Content-Type)
+
+**Impact: HIGH**
+
+APIs MUST be explicit about media types via `Content-Type` (request/response) and `Accept` (response). If an unsupported `Content-Type` is provided, return `415 Unsupported Media Type`. If an unsupported `Accept` is requested, return `406 Not Acceptable`.
+
+**Correct:** `Content-Type: application/json`, `Accept: application/json`, `415`/`406` for unsupported types  
+**Incorrect:** returning JSON without `Content-Type`, or silently accepting random body formats
+
+---
+
+## 16. Caching & ETags
+
+**Impact: MEDIUM**
+
+For cacheable `GET` endpoints, APIs SHOULD return `ETag` and support conditional requests via `If-None-Match`. When unchanged, return `304 Not Modified` (no body).
+
+**Correct:** `ETag: "v7"` + `If-None-Match` → `304`  
+**Incorrect:** always returning full payload, forcing clients to re-download
+
+---
+
+## 17. Long-Running Operations as Jobs
+
+**Impact: HIGH**
+
+If an operation can take longer than a typical request window, model it as a Job resource. Trigger returns `202 Accepted` with `Location: /v1/jobs/{id}`. Clients poll `GET /v1/jobs/{id}` for `queued/running/succeeded/failed` status and can follow result links when complete.
+
+**Correct:** `POST /v1/reports` → `202` + `Location` + `GET /v1/jobs/{id}`  
+**Incorrect:** synchronous endpoints that time out or cause duplicate work on retries
+
+---
+
+## 18. Deprecation & Sunset
+
+**Impact: MEDIUM**
+
+Breaking changes MUST be predictable. Announce deprecations, provide a sunset/removal date, and link to migration guidance. Prefer additive changes within a version; use `/v2/` for breaking changes.
+
+**Correct:** `Deprecation: true`, `Sunset: <date>`, `Link: <...>; rel="deprecation"`  
+**Incorrect:** removing/renaming fields or changing behavior with no notice
 
 ---
 

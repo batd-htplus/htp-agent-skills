@@ -32,6 +32,10 @@ For installation in Cursor, Claude Code, etc., see the repo README: [Supported P
 | 12       | Idempotency & Retries | `api-idempotency-retry` |
 | 13       | Auth & Rate Limits | `api-auth-rate-limits` |
 | 14       | Pagination Links | `api-pagination-links` |
+| 15       | Content Negotiation | `api-content-negotiation` |
+| 16       | Caching & ETags | `api-caching-etag` |
+| 17       | Async Jobs | `api-async-jobs` |
+| 18       | Deprecation & Sunset | `api-deprecation-sunset` |
 
 ## Creating a New Rule
 

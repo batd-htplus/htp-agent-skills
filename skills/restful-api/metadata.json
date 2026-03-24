@@ -1,28 +1,115 @@
 {
-  "id": "restful-api-best-practices",
-  "version": "1.0.0",
-  "license": "MIT",
-  "abstract": "Strict RESTful API design, review, and refactoring guidelines for AI agents and LLMs. Contains 10 rules covering resource-oriented URLs, HTTP methods, statelessness, status codes, error structure, collections/pagination, actions as sub-resources, naming conventions, versioning, and predictability. Use when designing, reviewing, or refactoring REST APIs.",
-  "tags": ["api", "rest", "http", "backend", "design", "review"],
-  "sections": [
-    { "id": "api-resource-oriented-urls", "title": "Resource-Oriented URLs", "impact": "CRITICAL" },
-    { "id": "api-http-methods", "title": "HTTP Methods Express Intent", "impact": "CRITICAL" },
-    { "id": "api-stateless", "title": "Stateless", "impact": "HIGH" },
-    { "id": "api-status-codes", "title": "Meaningful Status Codes", "impact": "CRITICAL" },
-    { "id": "api-error-structure", "title": "Machine-Readable Errors", "impact": "HIGH" },
-    { "id": "api-collections-pagination", "title": "Collections: Filtering, Sorting, Pagination", "impact": "HIGH" },
-    { "id": "api-actions-subresource", "title": "Actions as State Transitions", "impact": "HIGH" },
-    { "id": "api-naming-conventions", "title": "Naming Conventions", "impact": "MEDIUM" },
-    { "id": "api-versioning", "title": "Explicit Versioning", "impact": "HIGH" },
-    { "id": "api-boring-predictable", "title": "Boring by Design", "impact": "MEDIUM" },
-    { "id": "api-response-envelope", "title": "Consistent Response Envelope", "impact": "HIGH" },
-    { "id": "api-idempotency-retry", "title": "Idempotency & Retries", "impact": "HIGH" },
-    { "id": "api-auth-rate-limits", "title": "Auth & Rate Limit Headers", "impact": "HIGH" },
-    { "id": "api-pagination-links", "title": "Pagination Links", "impact": "MEDIUM" }
-  ],
-  "references": [
-    "https://restfulapi.net",
-    "https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods",
-    "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"
-  ]
+    "id": "restful-api-best-practices",
+    "version": "1.1.1",
+    "license": "MIT",
+    "abstract": "Strict RESTful API design, review, and refactoring guidelines for AI agents and LLMs. Covers resource-oriented URLs, HTTP methods, statelessness, status codes, error structure, collections/pagination, actions as sub-resources, naming conventions, versioning, predictability, response envelopes, idempotency keys, auth/rate-limit headers, pagination links, content negotiation, caching/ETags, async jobs, and deprecation/sunset. Use when designing, reviewing, or refactoring REST APIs.",
+    "tags": [
+        "api",
+        "rest",
+        "http",
+        "backend",
+        "design",
+        "review"
+    ],
+    "sections": [
+        {
+            "id": "api-resource-oriented-urls",
+            "title": "Resource-Oriented URLs",
+            "impact": "CRITICAL"
+        },
+        {
+            "id": "api-http-methods",
+            "title": "HTTP Methods Express Intent",
+            "impact": "CRITICAL"
+        },
+        {
+            "id": "api-stateless",
+            "title": "Stateless",
+            "impact": "HIGH"
+        },
+        {
+            "id": "api-status-codes",
+            "title": "Meaningful Status Codes",
+            "impact": "CRITICAL"
+        },
+        {
+            "id": "api-error-structure",
+            "title": "Machine-Readable Errors",
+            "impact": "HIGH"
+        },
+        {
+            "id": "api-collections-pagination",
+            "title": "Collections: Filtering, Sorting, Pagination",
+            "impact": "HIGH"
+        },
+        {
+            "id": "api-actions-subresource",
+            "title": "Actions as State Transitions",
+            "impact": "HIGH"
+        },
+        {
+            "id": "api-naming-conventions",
+            "title": "Naming Conventions",
+            "impact": "MEDIUM"
+        },
+        {
+            "id": "api-versioning",
+            "title": "Explicit Versioning",
+            "impact": "HIGH"
+        },
+        {
+            "id": "api-boring-predictable",
+            "title": "Boring by Design",
+            "impact": "MEDIUM"
+        },
+        {
+            "id": "api-response-envelope",
+            "title": "Consistent Response Envelope",
+            "impact": "HIGH"
+        },
+        {
+            "id": "api-idempotency-retry",
+            "title": "Idempotency & Retries",
+            "impact": "HIGH"
+        },
+        {
+            "id": "api-auth-rate-limits",
+            "title": "Auth & Rate Limit Headers",
+            "impact": "HIGH"
+        },
+        {
+            "id": "api-pagination-links",
+            "title": "Pagination Links",
+            "impact": "MEDIUM"
+        },
+        {
+            "id": "api-content-negotiation",
+            "title": "Content Negotiation (Accept/Content-Type)",
+            "impact": "HIGH"
+        },
+        {
+            "id": "api-caching-etag",
+            "title": "Caching & ETags",
+            "impact": "MEDIUM"
+        },
+        {
+            "id": "api-async-jobs",
+            "title": "Long-Running Operations as Jobs",
+            "impact": "HIGH"
+        },
+        {
+            "id": "api-deprecation-sunset",
+            "title": "Deprecation & Sunset",
+            "impact": "MEDIUM"
+        }
+    ],
+    "references": [
+        "https://restfulapi.net",
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods",
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status",
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation",
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag",
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/202",
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sunset"
+    ]
 }

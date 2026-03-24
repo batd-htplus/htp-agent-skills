@@ -9,9 +9,10 @@ tags: git, commits, conventional-commits, changelog
 
 Format: `<type>(<scope>): <subject>`
 
-**Why it matters:** Conventional Commits enable automated changelog generation, semantic versioning, and make Git history clear and searchable.
+Use Conventional Commits for every non-merge commit.
+This keeps history searchable, enables release automation, and improves PR review.
 
-**Structure:**
+## Structure
 
 ```
 <type>(<scope>): <subject>
@@ -21,7 +22,7 @@ Format: `<type>(<scope>): <subject>`
 [optional footer]
 ```
 
-**Types:**
+## Allowed Types
 
 | Type | When to use |
 |------|-------------|
@@ -36,24 +37,15 @@ Format: `<type>(<scope>): <subject>`
 | `ci` | CI/CD pipeline changes |
 | `revert` | Revert a previous commit |
 
-**Rules:**
-- Subject line: max **72 characters**
-- Subject: **present tense**, **lowercase**, **no period** at end
-- Body (optional): explain the **why**, not the how
-- Breaking changes: append `!` after type and add `BREAKING CHANGE:` in footer
+## Rules
 
-**❌ Incorrect:**
+- Subject line <= 72 characters
+- Subject in imperative mood, lowercase, no trailing period
+- Scope SHOULD be present and match touched area (`auth`, `api`, `payment`)
+- Body SHOULD explain intent and impact, not implementation details
+- Breaking change MUST use `!` and `BREAKING CHANGE:` footer
 
-```bash
-fix bug
-WIP
-update code
-asdfgh
-Fixed the thing
-FEAT: new endpoint
-```
-
-**✅ Correct:**
+## Good Examples
 
 ```bash
 feat(auth): add JWT refresh token endpoint
@@ -65,12 +57,26 @@ perf(query): add index on orders.user_id column
 chore(deps): upgrade laravel to 10.48.0
 ```
 
-**Breaking change:**
+## Breaking Change Example
 
 ```bash
 feat(api)!: change user response format to include nested profile
 
 BREAKING CHANGE: The `name` field is removed. Use `first_name` and `last_name` instead.
 ```
+
+## Invalid Patterns
+
+- `WIP`, `update code`, `fix bug`, `asdf`
+- Missing type or malformed prefix (`FEAT: ...`, `fixed: ...`)
+- Multi-purpose commit that mixes unrelated scopes
+
+## Commit Quality Gate
+
+Before commit:
+
+1. Commit contains one logical change set.
+2. Message type/scope matches actual change.
+3. Subject is specific enough to understand impact without opening diff.
 
 **See also:** `git-branch-naming.md`, `references/conventional-commits-cheatsheet.md`

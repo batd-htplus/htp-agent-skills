@@ -9,7 +9,7 @@ description: >
   status codes, CRUD, resource, controller, versioning, pagination.
 license: MIT
 metadata:
-  version: 1.0.0
+  version: 1.1.1
   maintainer: restful-api-best-practices
   tags: [api, rest, http, backend, design, review]
 ---
@@ -58,6 +58,10 @@ Do NOT activate for: GraphQL, gRPC/Protobuf, WebSocket protocol design, or inter
 | 12       | Idempotency & Retries | HIGH | `api-idempotency-retry` |
 | 13       | Auth & Rate Limits | HIGH | `api-auth-rate-limits` |
 | 14       | Pagination Links | MEDIUM | `api-pagination-links` |
+| 15       | Content Negotiation | HIGH | `api-content-negotiation` |
+| 16       | Caching & ETags | MEDIUM | `api-caching-etag` |
+| 17       | Async Jobs | HIGH | `api-async-jobs` |
+| 18       | Deprecation & Sunset | MEDIUM | `api-deprecation-sunset` |
 
 ## File Map
 
@@ -102,6 +106,10 @@ metadata.json         ← document metadata (version, id, tags, sections)
 - `api-idempotency-retry` — Safe retries via `Idempotency-Key`
 - `api-auth-rate-limits` — Auth and throttling headers
 - `api-pagination-links` — Pagination navigation links
+- `api-content-negotiation` — Use `Accept`/`Content-Type`; return 415/406 when needed
+- `api-caching-etag` — Conditional GET via `ETag`/`If-None-Match` (304)
+- `api-async-jobs` — Long-running operations modeled as Job resources (202 + Location)
+- `api-deprecation-sunset` — Deprecation notice + sunset date + migration link
 
 ---
 
