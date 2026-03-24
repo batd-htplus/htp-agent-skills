@@ -38,8 +38,8 @@ Allocate test effort proportional to risk.
 | Tier | Score | Required Test Depth |
 |---|---|---|
 | **Critical** | 9 | BVA + EP + all negative categories + edge cases + state transitions |
-| **High** | 6–8 | EP + negative cases + key edge cases |
-| **Medium** | 3–5 | EP + basic negative (null, wrong type) |
+| **High** | 6–8 | EP + BVA on constrained inputs + negative cases + key edge cases |
+| **Medium** | 3–5 | EP + basic negative (null, wrong type) + at least one edge case per input class |
 | **Low** | 1–2 | Happy path + null guard only |
 
 ---
@@ -49,8 +49,20 @@ Allocate test effort proportional to risk.
 1. Score Likelihood and Impact per module.
 2. Compute total score and assign risk tier.
 3. Select test depth from the tier mapping.
-4. Write tests in descending tier order.
-5. Re-score when trigger conditions occur.
+4. Define explicit minimum case count by tier before writing tests.
+5. Write tests in descending tier order.
+6. Re-score when trigger conditions occur.
+
+---
+
+## Minimum Case Floors (per module)
+
+- Critical: >= 12 focused tests across positive/negative/edge/state
+- High: >= 8 focused tests
+- Medium: >= 5 focused tests
+- Low: >= 2 focused tests
+
+These are floors, not targets. Increase when partitions or risk surface are larger.
 
 ---
 
@@ -58,6 +70,7 @@ Allocate test effort proportional to risk.
 
 - Risk table (Likelihood, Impact, Score, Tier)
 - Tier-to-depth mapping used by module
+- Tier-based minimum case floor and achieved count
 - Reassessment log after trigger events
 
 ---
@@ -78,6 +91,7 @@ Risk scores MUST be reassessed when:
 - [ ] Every module has a documented likelihood and impact score
 - [ ] Test writing order follows: Critical first, Low last
 - [ ] Critical-tier modules include EP, BVA, negative, edge, and state-transition coverage
+- [ ] Tier-based minimum case floors are met (or justified)
 - [ ] Low-tier modules have no more depth than: happy path + null guard
 - [ ] Risk scores are updated after every refactor
 - [ ] External/third-party dependencies are NOT scored as low risk
@@ -91,4 +105,5 @@ Risk scores MUST be reassessed when:
 - Not updating risk scores after refactors
 - Treating third-party integrations as low-risk
 - Using test count as a proxy for coverage quality
+- Declaring high/critical tier without meeting minimum case floor or justification
 - Spending the majority of test effort on UI/display code (low impact)
