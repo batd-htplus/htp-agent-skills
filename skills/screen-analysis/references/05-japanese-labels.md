@@ -24,7 +24,7 @@
 
 ## Business Domain Terms (業務用語)
 
-| Japanese | Vietnamese | Context in T-SCRUM |
+| Japanese | Vietnamese | Context in system |
 |----------|-----------|-------------------|
 | 出張 (しゅっちょう) | Công tác | Module AB10 |
 | 車両 (しゃりょう) | Xe cộ | Module AB20 |

@@ -2,7 +2,7 @@
 title: Danh sách module
 ---
 
-## Danh sách module T-SCRUM
+## Danh sách module
 
 | Module | Mô tả |
 |--------|-------|

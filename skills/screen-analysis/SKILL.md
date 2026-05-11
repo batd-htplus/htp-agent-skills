@@ -1,11 +1,11 @@
 ---
-name: t-scrum-screen-analysis
+name: screen-analysis
 version: 3.1.0
-description: Phân tích màn hình T-SCRUM ERP theo Screen ID, xuất Detail Design.
-triggers: [T-SCRUM, screen analysis, detail design, 画面分析, 詳細設計, yhFramework, MstServlet]
+description: Phân tích màn hình ERP theo Screen ID, xuất Detail Design.
+triggers: [screen analysis, detail design, 画面分析, 詳細設計, yhFramework, MstServlet]
 ---
 
-# Phân tích màn hình T-SCRUM
+# Phân tích màn hình
 
 Khi user yêu cầu phân tích 1 màn hình (VD: "phân tích EA1011"), chạy 7 bước dưới đây **theo đúng thứ tự**. Mỗi bước có lệnh cụ thể — chạy lệnh, lấy kết quả, ghi vào output.
 

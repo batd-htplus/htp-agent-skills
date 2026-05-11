@@ -1,8 +1,8 @@
 {
-    "id": "t-scrum-screen-analysis",
+    "id": "screen-analysis",
     "version": "2.0.0",
-    "name": "T-SCRUM Screen Detail Design Generator",
-    "description": "Reverse-engineer a T-SCRUM ERP screen (by Screen ID) into a 13-section Detail Design document. Reads Java source, HTML/SQL templates (Shift-JIS), and master config (MstServlet/MstWebFlow/MstMenu). Token-optimized: reads Java first to identify only the SQL/master files actually used.",
+    "name": "Screen Detail Design Generator",
+    "description": "Reverse-engineer a ERP screen (by Screen ID) into a 13-section Detail Design document. Reads Java source, HTML/SQL templates (Shift-JIS), and master config (MstServlet/MstWebFlow/MstMenu). Token-optimized: reads Java first to identify only the SQL/master files actually used.",
     "language": "Java/Servlet (yhFramework)",
     "license": "MIT",
     "compatibility": [
@@ -13,7 +13,6 @@
         "mistral"
     ],
     "tags": [
-        "t-scrum",
         "erp",
         "java",
         "servlet",
@@ -24,7 +23,6 @@
         "japanese-labels"
     ],
     "triggers": [
-        "T-SCRUM",
         "screen analysis",
         "detail design",
         "AB1011",

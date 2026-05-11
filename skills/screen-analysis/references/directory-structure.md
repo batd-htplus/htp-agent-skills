@@ -1,4 +1,4 @@
-# Cấu trúc thư mục T-SCRUM
+# Cấu trúc thư mục hệ thống
 
 ```
 project-root/
