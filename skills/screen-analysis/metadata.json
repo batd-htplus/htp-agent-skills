@@ -1,0 +1,154 @@
+{
+    "id": "t-scrum-screen-analysis",
+    "version": "2.0.0",
+    "name": "T-SCRUM Screen Detail Design Generator",
+    "description": "Reverse-engineer a T-SCRUM ERP screen (by Screen ID) into a 13-section Detail Design document. Reads Java source, HTML/SQL templates (Shift-JIS), and master config (MstServlet/MstWebFlow/MstMenu). Token-optimized: reads Java first to identify only the SQL/master files actually used.",
+    "language": "Java/Servlet (yhFramework)",
+    "license": "MIT",
+    "compatibility": [
+        "claude",
+        "gpt",
+        "gemini",
+        "llama",
+        "mistral"
+    ],
+    "tags": [
+        "t-scrum",
+        "erp",
+        "java",
+        "servlet",
+        "yhframework",
+        "screen-analysis",
+        "detail-design",
+        "reverse-engineering",
+        "japanese-labels"
+    ],
+    "triggers": [
+        "T-SCRUM",
+        "screen analysis",
+        "detail design",
+        "AB1011",
+        "CA3020",
+        "MstServlet",
+        "yhFramework",
+        "画面分析",
+        "詳細設計"
+    ],
+    "sections": [
+        {
+            "id": "module-detection",
+            "rule": "rules/01-module-detection.md",
+            "title": "Module Detection",
+            "title_jp": "モジュール判定",
+            "impact": "CRITICAL",
+            "order": 1,
+            "io": false
+        },
+        {
+            "id": "master-config",
+            "rule": "rules/02-master-config.md",
+            "title": "Master Config (LABEL, AUTH)",
+            "title_jp": "マスタ設定",
+            "impact": "CRITICAL",
+            "order": 2,
+            "io": true
+        },
+        {
+            "id": "java-source",
+            "rule": "rules/04-java-source.md",
+            "title": "Java Source Analysis",
+            "title_jp": "Javaソース分析",
+            "impact": "CRITICAL",
+            "order": 3,
+            "io": true
+        },
+        {
+            "id": "templates",
+            "rule": "rules/05-templates.md",
+            "title": "Templates (HTML + SQL)",
+            "title_jp": "テンプレート分析",
+            "impact": "CRITICAL",
+            "order": 4,
+            "io": true
+        },
+        {
+            "id": "navigation-flow",
+            "rule": "rules/03-navigation-flow.md",
+            "title": "Navigation Flow",
+            "title_jp": "画面遷移",
+            "impact": "HIGH",
+            "order": 5,
+            "io": true
+        },
+        {
+            "id": "master-data",
+            "rule": "rules/06-master-data.md",
+            "title": "Master Data (Dropdowns)",
+            "title_jp": "マスタデータ",
+            "impact": "MEDIUM",
+            "order": 6,
+            "io": true
+        },
+        {
+            "id": "advanced-analysis",
+            "rule": "rules/07-advanced-analysis.md",
+            "title": "Advanced Synthesis",
+            "title_jp": "高度分析",
+            "impact": "HIGH",
+            "order": 7,
+            "io": false
+        }
+    ],
+    "references": [
+        {
+            "id": "sql-encoding",
+            "file": "references/01-sql-encoding.md",
+            "loadWhen": "reading SQL files"
+        },
+        {
+            "id": "module-list",
+            "file": "references/02-module-list.md",
+            "loadWhen": "need module Japanese name"
+        },
+        {
+            "id": "common-events",
+            "file": "references/03-common-events.md",
+            "loadWhen": "unknown event code"
+        },
+        {
+            "id": "common-fields",
+            "file": "references/04-common-fields.md",
+            "loadWhen": "unknown field type"
+        },
+        {
+            "id": "japanese-labels",
+            "file": "references/05-japanese-labels.md",
+            "loadWhen": "translating Japanese labels/columns"
+        },
+        {
+            "id": "field-spec-format",
+            "file": "references/06-field-spec-format.md",
+            "loadWhen": "reading design spec images or creating field definitions"
+        },
+        {
+            "id": "directory-structure",
+            "file": "references/directory-structure.md",
+            "loadWhen": "path confusion"
+        },
+        {
+            "id": "html-patterns",
+            "file": "references/html-patterns.md",
+            "loadWhen": "parsing HTML template"
+        },
+        {
+            "id": "java-patterns",
+            "file": "references/java-patterns.md",
+            "loadWhen": "parsing Java source"
+        },
+        {
+            "id": "sql-patterns",
+            "file": "references/sql-patterns.md",
+            "loadWhen": "parsing SQL file"
+        }
+    ]
+}
